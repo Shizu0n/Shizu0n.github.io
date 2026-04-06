@@ -1,82 +1,14 @@
-/* ===== CSS VARIABLES - DESIGN SYSTEM ===== */
-
 :root {
-  /* Colors - Dark Theme (Default) */
-  --bg-primary: #000000;
-  --bg-secondary: #0a0a0a;
-  --bg-tertiary: #121212;
-  
-  --text-primary: #ffffff;
-  --text-secondary: #e5e7eb;
-  --text-tertiary: #a1a1aa;
-  --text-muted: #6b7280;
-  
-  /* Accent Colors */
-  --accent: #93c5fd;
-  --accent-hover: #bfdbfe;
-  --accent-dark: #60a5fa;
-  --accent-neon: #00d4ff;
-  --accent-purple: #a855f7;
-  
-  /* Glassmorphism */
-  --glass-bg: linear-gradient(135deg, rgba(147, 197, 253, 0.05) 0%, rgba(168, 85, 247, 0.03) 100%);
-  --glass-border: rgba(147, 197, 253, 0.15);
-  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
-  
-  /* Spacing */
-  --spacing-xs: 0.25rem;
-  --spacing-sm: 0.5rem;
-  --spacing-md: 1rem;
-  --spacing-lg: 1.5rem;
-  --spacing-xl: 2rem;
-  --spacing-2xl: 3rem;
-  --spacing-3xl: 4rem;
-  --spacing-4xl: 5rem;
-  
-  /* Border Radius */
-  --radius-sm: 8px;
-  --radius: 16px;
-  --radius-lg: 24px;
-  --radius-full: 9999px;
-
-  /* Layout */
-  --container-width: 1200px;
-  --header-height: 80px;
-
-  /* Typography */
-  --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 
-    'Oxygen', 'Ubuntu', 'Cantarell', 'Helvetica Neue', Arial, sans-serif;
-
-  /* Transitions */
-  --transition: 300ms cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-spring: 600ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
-  
-  /* Z-index */
-  --z-dropdown: 1000;
-  --z-sticky: 1020;
-}
-
-/* ===== LIGHT THEME ===== */
-[data-theme="light"] {
-  /* Colors - Light Theme */
-  --bg-primary: #f8fafc;
-  --bg-secondary: #f1f5f9;
-  --bg-tertiary: #e2e8f0;
-  
-  --text-primary: #0f172a;
-  --text-secondary: #334155;
-  --text-tertiary: #64748b;
-  --text-muted: #94a3b8;
-  
-  /* Accent Colors - Slightly darker for light mode */
-  --accent: #3b82f6;
-  --accent-hover: #2563eb;
-  --accent-dark: #1d4ed8;
-  --accent-neon: #0284c7;
-  --accent-purple: #7c3aed;
-  
-  /* Glassmorphism - Adjusted for light mode */
-  --glass-bg: linear-gradient(135deg, rgba(59, 130, 246, 0.08) 0%, rgba(124, 58, 237, 0.05) 100%);
-  --glass-border: rgba(59, 130, 246, 0.2);
-  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  --black: #000000;
+  --white: #ffffff;
+  --gray-100: #f5f5f5;
+  --gray-400: #999999;
+  --gray-600: #444444;
+  --gray-800: #1a1a1a;
+  --gray-900: #111111;
+  --accent: #ffffff;
+  --font-mono: 'DM Mono', 'Courier New', monospace;
+  --font-sans: 'DM Sans', system-ui, sans-serif;
+  --font-display: 'Instrument Serif', Georgia, serif;
+  --transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }

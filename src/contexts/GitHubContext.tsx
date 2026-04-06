@@ -52,7 +52,7 @@ interface GitHubContextType {
 
 const GitHubContext = createContext<GitHubContextType | undefined>(undefined);
 
-const GITHUB_USERNAME = 'Shizuo0';
+const GITHUB_USERNAME = 'Shizu0n';
 const CACHE_KEY = 'github_data_cache';
 const CACHE_DURATION = 5 * 60 * 1000; // 5 minutos
 
