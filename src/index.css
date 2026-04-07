@@ -274,6 +274,7 @@ button {
 .hero-overlay,
 .hero-outro,
 .hero-scroll-hint,
+.hero-visual-anchor,
 .hero-visual-shell {
   position: absolute;
 }
@@ -302,13 +303,18 @@ button {
   transform-origin: 50% 0%;
 }
 
-.hero-visual-shell {
+.hero-visual-anchor {
   left: 50%;
-  top: 50%;
-  width: min(60vw, 680px);
+  top: 47%;
+  width: min(56vw, 620px);
   aspect-ratio: 1;
   transform: translate(-50%, -50%);
   pointer-events: none;
+}
+
+.hero-visual-shell {
+  width: 100%;
+  height: 100%;
 }
 
 .hero-visual-ring,
@@ -595,23 +601,24 @@ button {
 
 .about-floating-note {
   position: absolute;
-  z-index: 1;
-  max-width: 13rem;
+  z-index: 0;
+  max-width: 10rem;
   font-family: var(--font-mono);
   font-size: 0.68rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: #505050;
+  color: #3f3f3f;
+  pointer-events: none;
 }
 
 .about-floating-note--one {
-  left: clamp(1.25rem, 4vw, 3rem);
-  bottom: 10%;
+  left: clamp(1rem, 3vw, 2rem);
+  bottom: 5%;
 }
 
 .about-floating-note--two {
-  right: clamp(1.25rem, 4vw, 3rem);
-  top: 18%;
+  right: clamp(1rem, 3vw, 2rem);
+  top: 14%;
   text-align: right;
 }
 
@@ -1391,8 +1398,9 @@ button {
     min-height: 1540px;
   }
 
-  .hero-visual-shell {
-    width: min(64vw, 500px);
+  .hero-visual-anchor {
+    top: 46%;
+    width: min(58vw, 460px);
   }
 
   .hero-copy {
@@ -1436,14 +1444,14 @@ button {
 
   .about-floating-note--one {
     left: clamp(1.25rem, 4vw, 2rem);
-    bottom: 6%;
-    max-width: 11rem;
+    bottom: 4%;
+    max-width: 9rem;
   }
 
   .about-floating-note--two {
     right: clamp(1.25rem, 4vw, 2rem);
-    top: 12%;
-    max-width: 11rem;
+    top: 10%;
+    max-width: 9rem;
   }
 
   .skills-columns {
@@ -1492,9 +1500,9 @@ button {
     display: none;
   }
 
-  .hero-visual-shell {
-    top: 41%;
-    width: min(75vw, 320px);
+  .hero-visual-anchor {
+    top: 39%;
+    width: min(70vw, 280px);
   }
 
   .hero-visual-ring--middle {

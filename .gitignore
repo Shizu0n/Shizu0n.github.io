@@ -35,3 +35,6 @@ CLAUDE.md
 AGENTS.md
 AI_SESSION_CACHE/
 .anthropic/
+
+# Visual QA artifacts
+visual-qa/

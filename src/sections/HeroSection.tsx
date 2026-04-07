@@ -59,25 +59,27 @@ export default function HeroSection() {
           style={{ opacity: lineOpacity, scaleY: lineScale }}
         />
 
-        <motion.div
-          className="hero-visual-shell"
-          style={{
-            opacity: visualOpacity,
-            scale: visualScale,
-            rotate: visualRotate,
-            y: visualY,
-          }}
-        >
-          <div className="hero-visual-ring hero-visual-ring--outer" />
-          <div className="hero-visual-ring hero-visual-ring--middle" />
-          <div className="hero-visual-ring hero-visual-ring--inner" />
-          <div className="hero-visual-beam hero-visual-beam--horizontal" />
-          <div className="hero-visual-beam hero-visual-beam--vertical" />
-          <div className="hero-visual-core">
-            <span className="hero-visual-index">01 / sequence</span>
-            <span className="hero-visual-word">Build</span>
-          </div>
-        </motion.div>
+        <div className="hero-visual-anchor">
+          <motion.div
+            className="hero-visual-shell"
+            style={{
+              opacity: visualOpacity,
+              scale: visualScale,
+              rotate: visualRotate,
+              y: visualY,
+            }}
+          >
+            <div className="hero-visual-ring hero-visual-ring--outer" />
+            <div className="hero-visual-ring hero-visual-ring--middle" />
+            <div className="hero-visual-ring hero-visual-ring--inner" />
+            <div className="hero-visual-beam hero-visual-beam--horizontal" />
+            <div className="hero-visual-beam hero-visual-beam--vertical" />
+            <div className="hero-visual-core">
+              <span className="hero-visual-index">01 / sequence</span>
+              <span className="hero-visual-word">Build</span>
+            </div>
+          </motion.div>
+        </div>
 
         <motion.div className="hero-intro" style={{ opacity: introOpacity, y: introY }}>
           <span className="hero-kicker">Paulo Shizuo</span>

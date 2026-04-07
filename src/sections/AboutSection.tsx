@@ -26,7 +26,7 @@ export default function AboutSection() {
   const headlineY = range(progress, [0, 0.5, 1], [prefersReducedMotion ? 0 : 28, 0, prefersReducedMotion ? 0 : -32])
   const panelY = range(progress, [0, 0.5, 1], [prefersReducedMotion ? 0 : 54, 0, prefersReducedMotion ? 0 : -20])
   const watermarkY = range(progress, [0, 1], [prefersReducedMotion ? 0 : 60, prefersReducedMotion ? 0 : -60])
-  const noteY = range(progress, [0, 1], [prefersReducedMotion ? 0 : 18, prefersReducedMotion ? 0 : -22])
+  const noteY = range(progress, [0, 1], [prefersReducedMotion ? 0 : 8, prefersReducedMotion ? 0 : -8])
   const watermarkOpacity = range(progress, [0, 0.35, 0.75, 1], [0.08, 0.16, 0.12, 0.05])
 
   const startedYear = user?.created_at
