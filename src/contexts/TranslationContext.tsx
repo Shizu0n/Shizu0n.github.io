@@ -27,6 +27,7 @@ const translations = {
     'chat.emptyMsg': 'Ask me anything about my work, experience, or projects.',
     'chat.placeholder': 'Message...',
     'chat.error': 'Failed to send message. Try again later.',
+    'chat.quotaExceeded': 'API rate limit reached. Try again in {seconds}s.',
 
     // Hero
     'hero.kicker': 'Paulo Shizuo',
@@ -95,6 +96,7 @@ const translations = {
     'chat.emptyMsg': 'Pergunte qualquer coisa sobre meu trabalho, experiência ou projetos.',
     'chat.placeholder': 'Mensagem...',
     'chat.error': 'Falha ao enviar mensagem. Tente novamente mais tarde.',
+    'chat.quotaExceeded': 'Limite da API atingido. Tente em {seconds}s.',
 
     // Hero
     'hero.kicker': 'Paulo Shizuo',

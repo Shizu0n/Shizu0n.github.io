@@ -154,19 +154,40 @@ npm run lint:fix     # auto-fix lint issues
 npm run format       # format with Prettier
 npm run format:check # check formatting
 npm run clean        # remove dist directory
+npm run security:check # detect tracked secrets and risky VITE usage
 ```
 
 ## Environment Variables
 
-To enable real EmailJS delivery, create a .env file at the project root:
+To enable full API and contact features, create a .env file at the project root.
+
+Security rule: any variable starting with VITE_ is public in the frontend bundle. Never put private keys in VITE_ vars.
 
 ```env
 VITE_EMAILJS_SERVICE_ID=your_service_id
 VITE_EMAILJS_TEMPLATE_ID=your_template_id
 VITE_EMAILJS_PUBLIC_KEY=your_public_key
+VITE_CHAT_API_URL=http://localhost:3000
+
+ALLOWED_ORIGINS=https://shizu0n.vercel.app,https://shizu0n.github.io,http://localhost:3000,http://127.0.0.1:3000
+
+GEMINI_API_KEY=your_gemini_api_key_here
+SUPABASE_URL=https://your-project-ref.supabase.co
+SUPABASE_SERVICE_ROLE_KEY=your_supabase_secret_or_service_role_key
+
+GROQ_API_KEY=gsk_your_groq_key_here
+OPENROUTER_API_KEY=sk-or-your_openrouter_key_here
+CF_ACCOUNT_ID=your_cloudflare_account_id_here
+CF_WORKERS_AI_TOKEN=your_cloudflare_workers_ai_token_here
 ```
 
 If these variables are not set, the contact flow automatically falls back to mailto.
+
+Before deploy or opening PRs, run:
+
+```bash
+npm run security:check
+```
 
 ## Build and Deployment
 

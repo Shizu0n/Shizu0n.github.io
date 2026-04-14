@@ -1765,6 +1765,12 @@ button {
   flex-direction: column;
   overflow: hidden;
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.8);
+  transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1), height 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.chat-panel--expanded {
+  width: min(80vw, 800px);
+  height: min(85vh, 900px);
 }
 
 @media (max-width: 768px) {
@@ -1777,6 +1783,11 @@ button {
     border-top: 1px solid #222;
     border-radius: 12px 12px 0 0;
     max-height: 100vh;
+  }
+
+  .chat-panel--expanded {
+    width: 100vw;
+    height: 95vh;
   }
   
   .chat-toggle-btn {
@@ -1816,17 +1827,34 @@ button {
   font-family: var(--font-sans);
 }
 
+.chat-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.chat-expand-btn,
 .chat-close-btn {
   background: none;
   border: none;
   color: #666;
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   line-height: 1;
-  transition: color 0.2s ease;
+  transition: color 0.2s ease, transform 0.2s ease;
 }
 
 .chat-close-btn:hover {
   color: #fff;
+  transform: scale(1.1);
+}
+
+.chat-expand-btn {
+  font-size: 1.2rem;
+}
+
+.chat-expand-btn:hover {
+  color: #fff;
+  transform: scale(1.1);
 }
 
 .chat-messages {

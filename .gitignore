@@ -13,9 +13,8 @@ dist-ssr
 *.local
 
 # Environment variables
-.env
-.env.local
-.env.*.local
+.env*
+!.env.example
 
 # Editor directories and files
 .vscode/*
@@ -46,7 +45,6 @@ graphify-out/
 .gemini/
 .agents/
 .vercel
-.env*.local
 
 # Local tool artifacts
 .graphify_python
