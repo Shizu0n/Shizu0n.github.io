@@ -1,0 +1,275 @@
+{
+  "criteria_weights": {
+    "completeness": 0.18,
+    "backend_depth": 0.12,
+    "frontend_polish": 0.14,
+    "architecture_maturity": 0.14,
+    "security_auth": 0.08,
+    "data_modeling": 0.1,
+    "functional_scope": 0.1,
+    "documentation_quality": 0.07,
+    "production_readiness": 0.07
+  },
+  "project_scorecards": [
+    {
+      "project_id": "academic-system",
+      "summary_pt": "Projeto forte para discutir Java backend, regras de negócio e integração com serviços externos.",
+      "summary_en": "A strong project for discussing Java backend, business rules, and integration with external services.",
+      "scores": {
+        "completeness": {
+          "score": 4,
+          "reason_pt": "Cobre domínio claro com regras, persistência e integração externa, mas sem deploy público ou autenticação.",
+          "reason_en": "It covers a clear domain with rules, persistence, and external integration, but without public deployment or authentication."
+        },
+        "backend_depth": {
+          "score": 4,
+          "reason_pt": "Tem serviço, repositório, exceções de domínio e integração com três APIs.",
+          "reason_en": "It has service, repository, domain exceptions, and integration with three APIs."
+        },
+        "frontend_polish": {
+          "score": 2,
+          "reason_pt": "A interface é console/CLI, então a camada visual não é o foco do projeto.",
+          "reason_en": "The interface is console/CLI, so the visual layer is not the project's focus."
+        },
+        "architecture_maturity": {
+          "score": 4,
+          "reason_pt": "A arquitetura em camadas está explícita e bem documentada.",
+          "reason_en": "The layered architecture is explicit and well documented."
+        },
+        "security_auth": {
+          "score": 2,
+          "reason_pt": "Não há autenticação documentada; a principal camada de segurança vem do uso de JDBC e validações.",
+          "reason_en": "There is no documented authentication; the main security layer comes from JDBC usage and validations."
+        },
+        "data_modeling": {
+          "score": 4,
+          "reason_pt": "O domínio é relacional e com entidades bem definidas para matrícula e reserva.",
+          "reason_en": "The domain is relational and has well-defined entities for enrollment and reservation."
+        },
+        "functional_scope": {
+          "score": 4,
+          "reason_pt": "O sistema cobre consulta, matrícula e biblioteca com várias regras operacionais.",
+          "reason_en": "The system covers lookup, enrollment, and library flows with multiple operational rules."
+        },
+        "documentation_quality": {
+          "score": 5,
+          "reason_pt": "O README detalha arquitetura, fluxos, instalação, entidades e exceções.",
+          "reason_en": "The README details architecture, flows, installation, entities, and exceptions."
+        },
+        "production_readiness": {
+          "score": 2,
+          "reason_pt": "Não há evidência clara de deploy, testes automatizados ou operação em produção.",
+          "reason_en": "There is no clear evidence of deployment, automated tests, or production operation."
+        }
+      }
+    },
+    {
+      "project_id": "delivery-system",
+      "summary_pt": "Projeto com maior amplitude funcional de negócio e um dos melhores exemplos de sistema full stack operacional.",
+      "summary_en": "The project with the broadest business functional scope and one of the best examples of an operational full-stack system.",
+      "scores": {
+        "completeness": {
+          "score": 5,
+          "reason_pt": "Combina múltiplos papéis, autenticação, API, banco e domínio amplo de delivery.",
+          "reason_en": "It combines multiple roles, authentication, an API, a database, and a broad delivery domain."
+        },
+        "backend_depth": {
+          "score": 4,
+          "reason_pt": "Tem API REST, JWT, segurança básica e um domínio operacional relevante.",
+          "reason_en": "It has a REST API, JWT, baseline security, and a relevant operational domain."
+        },
+        "frontend_polish": {
+          "score": 4,
+          "reason_pt": "Há fluxo de produto real no frontend, embora o foco visual seja mais operacional que editorial.",
+          "reason_en": "There is a real product flow on the frontend, though the visual focus is more operational than editorial."
+        },
+        "architecture_maturity": {
+          "score": 4,
+          "reason_pt": "A separação frontend/backend/database está clara e bem sustentada pela documentação.",
+          "reason_en": "The frontend/backend/database separation is clear and well supported by the documentation."
+        },
+        "security_auth": {
+          "score": 4,
+          "reason_pt": "JWT, bcrypt e Helmet criam uma base razoável de autenticação e proteção.",
+          "reason_en": "JWT, bcrypt, and Helmet create a reasonable baseline for authentication and protection."
+        },
+        "data_modeling": {
+          "score": 4,
+          "reason_pt": "O domínio tem várias entidades conectadas entre catálogo, pedido, entrega e avaliação.",
+          "reason_en": "The domain has multiple connected entities across catalog, ordering, delivery, and review."
+        },
+        "functional_scope": {
+          "score": 5,
+          "reason_pt": "É o projeto com maior cobertura de fluxo de negócio entre os sistemas CRUD/operacionais.",
+          "reason_en": "It has the broadest business-flow coverage among the CRUD/operational systems."
+        },
+        "documentation_quality": {
+          "score": 4,
+          "reason_pt": "O README documenta bem features, API, segurança e diagramas.",
+          "reason_en": "The README documents features, API, security, and diagrams well."
+        },
+        "production_readiness": {
+          "score": 3,
+          "reason_pt": "O sistema mostra estrutura sólida, mas sem deploy público ou testes claramente apresentados.",
+          "reason_en": "The system shows a solid structure, but without public deployment or clearly presented tests."
+        }
+      }
+    },
+    {
+      "project_id": "gym-management",
+      "summary_pt": "Bom projeto para conversar sobre domínio administrativo, Spring Boot e Java Swing, com foco menos forte em evidência arquitetural do que os melhores projetos do portfólio.",
+      "summary_en": "A good project for discussing administrative domain modeling, Spring Boot, and Java Swing, with less architectural evidence than the strongest projects in the portfolio.",
+      "scores": {
+        "completeness": {
+          "score": 3,
+          "reason_pt": "Tem domínio amplo, mas a documentação técnica e os sinais de acabamento são mais limitados.",
+          "reason_en": "It has a broad domain, but the technical documentation and finish signals are more limited."
+        },
+        "backend_depth": {
+          "score": 3,
+          "reason_pt": "A stack backend é interessante, mas a evidência técnica disponível é mais curta que em Academic e Referral.",
+          "reason_en": "The backend stack is interesting, but the available technical evidence is shorter than in Academic and Referral."
+        },
+        "frontend_polish": {
+          "score": 2,
+          "reason_pt": "É um sistema desktop utilitário, não um projeto com forte foco de refinamento visual.",
+          "reason_en": "It is a utilitarian desktop system, not a project with strong visual refinement focus."
+        },
+        "architecture_maturity": {
+          "score": 3,
+          "reason_pt": "Há modelagem e stack definida, mas menos detalhes sobre a arquitetura interna.",
+          "reason_en": "There is modeling and a defined stack, but fewer details about the internal architecture."
+        },
+        "security_auth": {
+          "score": 1,
+          "reason_pt": "Autenticação e autorização não aparecem documentadas.",
+          "reason_en": "Authentication and authorization are not documented."
+        },
+        "data_modeling": {
+          "score": 4,
+          "reason_pt": "O domínio administrativo de academia cobre entidades relevantes e variadas.",
+          "reason_en": "The gym administration domain covers relevant and varied entities."
+        },
+        "functional_scope": {
+          "score": 4,
+          "reason_pt": "A cobertura funcional é ampla: alunos, planos, pagamentos, treinos e frequência.",
+          "reason_en": "The functional coverage is broad: students, plans, payments, workouts, and attendance."
+        },
+        "documentation_quality": {
+          "score": 3,
+          "reason_pt": "O README cobre o essencial, mas não chega no nível de detalhamento dos projetos mais fortes.",
+          "reason_en": "The README covers the essentials, but not at the detail level of the strongest projects."
+        },
+        "production_readiness": {
+          "score": 2,
+          "reason_pt": "Não há evidência clara de deploy, testes ou operação mais madura.",
+          "reason_en": "There is no clear evidence of deployment, tests, or more mature operation."
+        }
+      }
+    },
+    {
+      "project_id": "referral-system",
+      "summary_pt": "Melhor vitrine de NestJS e autenticação full stack em TypeScript, com escopo de produto mais enxuto que o Delivery System.",
+      "summary_en": "The best showcase of NestJS and full-stack authentication in TypeScript, with a leaner product scope than Delivery System.",
+      "scores": {
+        "completeness": {
+          "score": 4,
+          "reason_pt": "Entrega um fluxo full stack completo para um domínio menor e bem delimitado.",
+          "reason_en": "It delivers a complete full-stack flow for a smaller, well-bounded domain."
+        },
+        "backend_depth": {
+          "score": 4,
+          "reason_pt": "O backend NestJS tem módulos, guards, decorators e TypeORM com relação recursiva.",
+          "reason_en": "The NestJS backend has modules, guards, decorators, and TypeORM with a recursive relation."
+        },
+        "frontend_polish": {
+          "score": 4,
+          "reason_pt": "O frontend cobre fluxo real de produto com boa UX e estado global claro.",
+          "reason_en": "The frontend covers a real product flow with good UX and clear global state."
+        },
+        "architecture_maturity": {
+          "score": 4,
+          "reason_pt": "A separação por módulos e camadas está bem estabelecida e explicada.",
+          "reason_en": "The modular and layered separation is well established and explained."
+        },
+        "security_auth": {
+          "score": 4,
+          "reason_pt": "JWT, bcrypt, guards e rotas protegidas dão boa sustentação para o domínio.",
+          "reason_en": "JWT, bcrypt, guards, and protected routes provide solid support for the domain."
+        },
+        "data_modeling": {
+          "score": 4,
+          "reason_pt": "A relação usuário-indicador é um bom exemplo de modelagem recursiva simples e útil.",
+          "reason_en": "The user-referrer relationship is a good example of simple and useful recursive modeling."
+        },
+        "functional_scope": {
+          "score": 3,
+          "reason_pt": "O escopo é menor e mais enxuto do que Delivery System ou o próprio portfólio.",
+          "reason_en": "The scope is smaller and leaner than Delivery System or the portfolio itself."
+        },
+        "documentation_quality": {
+          "score": 5,
+          "reason_pt": "O README explica bem arquitetura, IA usada, decisões e aprendizados.",
+          "reason_en": "The README explains architecture, AI usage, decisions, and learnings well."
+        },
+        "production_readiness": {
+          "score": 3,
+          "reason_pt": "A arquitetura é boa, mas não há forte evidência de deploy e operação pública.",
+          "reason_en": "The architecture is good, but there is no strong evidence of public deployment and operation."
+        }
+      }
+    },
+    {
+      "project_id": "shizu0n-cv",
+      "summary_pt": "Projeto mais polido visualmente e mais pronto para uso real, combinando frontend forte, backend serverless e RAG.",
+      "summary_en": "The most visually polished and real-world-ready project, combining a strong frontend, serverless backend, and RAG.",
+      "scores": {
+        "completeness": {
+          "score": 5,
+          "reason_pt": "Reúne apresentação, integrações, deploy, chat com IA e manutenção ativa em um único produto.",
+          "reason_en": "It brings together presentation, integrations, deployment, AI chat, and active maintenance in a single product."
+        },
+        "backend_depth": {
+          "score": 4,
+          "reason_pt": "O backend não é um CRUD tradicional, mas tem SSE, provider fallback, segurança básica e retrieval vetorial.",
+          "reason_en": "The backend is not a traditional CRUD, but it has SSE, provider fallback, baseline security, and vector retrieval."
+        },
+        "frontend_polish": {
+          "score": 5,
+          "reason_pt": "É o projeto com melhor refinamento visual, motion e acabamento de interface.",
+          "reason_en": "It is the project with the strongest visual refinement, motion, and interface finish."
+        },
+        "architecture_maturity": {
+          "score": 5,
+          "reason_pt": "A separação entre frontend, hooks, contexts, API, dados e migrações está madura e atual.",
+          "reason_en": "The separation between frontend, hooks, contexts, API, data, and migrations is mature and current."
+        },
+        "security_auth": {
+          "score": 4,
+          "reason_pt": "Há validação, rate limiting, sanitização de logs, proteção anti-jailbreak e cadeias de fallback.",
+          "reason_en": "It has validation, rate limiting, log sanitization, anti-jailbreak protection, and fallback chains."
+        },
+        "data_modeling": {
+          "score": 4,
+          "reason_pt": "O projeto modela bem base de conhecimento, chunks vetoriais e caches, embora não seja o domínio relacional mais amplo.",
+          "reason_en": "The project models the knowledge base, vector chunks, and caches well, even though it is not the broadest relational domain."
+        },
+        "functional_scope": {
+          "score": 4,
+          "reason_pt": "O escopo é menor em operação de negócio do que Delivery, mas forte em apresentação, contato e AI Q&A.",
+          "reason_en": "The scope is smaller in business operations than Delivery, but strong in presentation, contact, and AI Q&A."
+        },
+        "documentation_quality": {
+          "score": 5,
+          "reason_pt": "README, AGENTS e a própria estrutura do repositório documentam bem o sistema.",
+          "reason_en": "README, AGENTS, and the repository structure itself document the system well."
+        },
+        "production_readiness": {
+          "score": 5,
+          "reason_pt": "É o projeto com deploy público e o melhor sinal de uso real contínuo.",
+          "reason_en": "It is the project with public deployment and the strongest signal of ongoing real use."
+        }
+      }
+    }
+  ]
+}

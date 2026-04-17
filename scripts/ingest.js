@@ -3,91 +3,71 @@ import { GoogleGenerativeAI } from '@google/generative-ai';
 import fs from 'fs';
 import path from 'path';
 
-// Utilizando as variáveis de ambiente carregadas pelo runtime do Node (--env-file=.env)
 const { SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, GEMINI_API_KEY } = process.env;
 
 if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY || !GEMINI_API_KEY) {
-  console.error("Missing SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, or GEMINI_API_KEY in .env");
+  console.error('Missing SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, or GEMINI_API_KEY in .env');
+  process.exit(1);
+}
+
+const knowledgePath = path.resolve(process.cwd(), 'data', 'portfolio-knowledge.json');
+if (!fs.existsSync(knowledgePath)) {
+  console.error('Missing data/portfolio-knowledge.json. Run npm run knowledge:build first.');
+  process.exit(1);
+}
+
+const artifact = JSON.parse(fs.readFileSync(knowledgePath, 'utf8'));
+const chunks = artifact?.chat_runtime?.chunks;
+
+if (!Array.isArray(chunks) || chunks.length === 0) {
+  console.error('No runtime chunks found in data/portfolio-knowledge.json');
   process.exit(1);
 }
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY);
 const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
 
-const knowledgePath = path.resolve(process.cwd(), 'data', 'portfolio-knowledge.json');
-const rawData = JSON.parse(fs.readFileSync(knowledgePath, 'utf8'));
-
-// Semarquear os chunks baseados no JSON real
-const chunks = [];
-
-// 1. Personal Identity & Bio
-const p = rawData.personal;
-chunks.push({
-   metadata: { type: 'identity' },
-   content: `Name: ${p.name}\nRole: ${p.title}\nLocation: ${p.location}\nBio (EN): ${p.bio.en}\nBio (PT): ${p.bio.pt}\nGitHub: ${p.github}\nLinkedIn: ${p.linkedin}\nEmail: ${p.email}`
-});
-
-// 2. Education
-rawData.education.forEach(ed => {
-   chunks.push({
-     metadata: { type: 'education' },
-     content: `Education: ${ed.degree} at ${ed.institution} (${ed.period}).\nDescription (EN): ${ed.description.en}\nDescription (PT): ${ed.description.pt}`
-   });
-});
-
-// 3. Projects
-rawData.projects.forEach(proj => {
-   chunks.push({
-      metadata: { type: 'project', title: proj.name },
-      content: `Project: ${proj.name}\nCategory: ${proj.category}\nStack: ${proj.stack.join(', ')}\nGitHub: ${proj.github_url}\nDescription (EN): ${proj.description.en}\nDescription (PT): ${proj.description.pt}`
-   });
-});
-
-// 4. Skills & Capabilities
-rawData.skills.capabilities.forEach(cap => {
-   chunks.push({
-      metadata: { type: 'capability', title: cap.title },
-      content: `Capability: ${cap.title}\nSummary (EN): ${cap.summary.en}\nSummary (PT): ${cap.summary.pt}`
-   });
-});
-
-chunks.push({
-   metadata: { type: 'skills_list' },
-   content: `Languages: ${rawData.skills.languages.join(', ')}\nFrameworks: ${rawData.skills.frameworks.join(', ')}\nTools: ${rawData.skills.tools.join(', ')}\nConcepts: ${rawData.skills.concepts.join(', ')}`
-});
-
-// 5. Tone & Style
-const pers = rawData.personality;
-chunks.push({
-   metadata: { type: 'personality' },
-   content: `Tone: ${pers.tone}\nValues: ${pers.values.join(', ')}\nWorking style: ${pers.working_style}`
-});
-
 async function main() {
-    console.log(`🚀 Starting RAG ingestion for ${chunks.length} segments...`);
-    const model = genAI.getGenerativeModel({ model: "gemini-embedding-001" });
+  console.log(`Starting RAG ingestion for ${chunks.length} chunks...`);
+  const model = genAI.getGenerativeModel({ model: 'gemini-embedding-001' });
 
-    // Scrubbing (Delete all existing to avoid duplicates on re-run)
-    console.log("Cleaning up previous data...");
-    await supabase.from('chunks').delete().neq('id', -1);
-    
-    for (const chunk of chunks) {
-       console.log(`Processing [${chunk.metadata.type}]${chunk.metadata.title ? `: ${chunk.metadata.title}` : ''}...`);
-       
-       const result = await model.embedContent(chunk.content);
-       const embedding = result.embedding.values;
+  console.log('Cleaning up previous chunks...');
+  const { error: deleteError } = await supabase.from('chunks').delete().neq('id', -1);
+  if (deleteError) {
+    throw deleteError;
+  }
 
-       const { error } = await supabase.from('chunks').insert({
-          content: chunk.content,
-          metadata: chunk.metadata,
-          embedding
-       });
+  for (const chunk of chunks) {
+    console.log(`Embedding ${chunk.id} (${chunk.type}/${chunk.facet})...`);
+    const result = await model.embedContent(chunk.content);
+    const embedding = result.embedding.values;
 
-       if (error) {
-          console.error("❌ Supabase insert error:", error);
-       }
+    const metadata = {
+      chunk_id: chunk.id,
+      type: chunk.type,
+      project_id: chunk.project_id,
+      facet: chunk.facet,
+      language: chunk.language,
+      stack: chunk.stack,
+      stacks: chunk.stacks || [],
+      tags: chunk.tags || []
+    };
+
+    const { error } = await supabase.from('chunks').insert({
+      content: chunk.content,
+      metadata,
+      embedding
+    });
+
+    if (error) {
+      throw error;
     }
-    console.log("\n✅ RAG Database updated successfully!");
+  }
+
+  console.log('RAG database updated successfully.');
 }
 
-main().catch(console.error);
+main().catch((error) => {
+  console.error(error);
+  process.exit(1);
+});

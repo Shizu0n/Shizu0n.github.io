@@ -3,13 +3,6 @@ import { motion, AnimatePresence, useDragControls } from 'framer-motion';
 import { useChat } from '../hooks/useChat';
 import { useTranslation } from '../contexts/TranslationContext';
 
-const SUGGESTED_PROMPTS = [
-  "What do you build?",
-  "Top projects",
-  "Tech stack",
-  "Contact info",
-];
-
 export default function FloatingChat() {
   const { t, language } = useTranslation()
   const [isOpen, setIsOpen] = useState(false);
@@ -22,6 +15,19 @@ export default function FloatingChat() {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const dragControls = useDragControls();
+  const suggestedPrompts = language === 'pt'
+    ? [
+        t('chat.prompt.stacks'),
+        t('chat.prompt.complete'),
+        t('chat.prompt.backend'),
+        t('chat.prompt.react'),
+      ]
+    : [
+        t('chat.prompt.stacks'),
+        t('chat.prompt.complete'),
+        t('chat.prompt.backend'),
+        t('chat.prompt.react'),
+      ];
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -215,7 +221,7 @@ export default function FloatingChat() {
 
             {messages.length === 0 && (
               <div className="chat-suggestions">
-                {SUGGESTED_PROMPTS.map((prompt) => (
+                {suggestedPrompts.map((prompt) => (
                   <button
                     key={prompt}
                     className="chat-suggestion-chip"

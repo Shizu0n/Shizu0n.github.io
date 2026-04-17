@@ -28,6 +28,10 @@ const translations = {
     'chat.placeholder': 'Message...',
     'chat.error': 'Failed to send message. Try again later.',
     'chat.quotaExceeded': 'API rate limit reached. Try again in {seconds}s.',
+    'chat.prompt.stacks': 'List all stacks',
+    'chat.prompt.complete': 'Most complete project',
+    'chat.prompt.backend': 'Best backend project',
+    'chat.prompt.react': 'Best React project',
 
     // Hero
     'hero.kicker': 'Paulo Shizuo',
@@ -97,6 +101,10 @@ const translations = {
     'chat.placeholder': 'Mensagem...',
     'chat.error': 'Falha ao enviar mensagem. Tente novamente mais tarde.',
     'chat.quotaExceeded': 'Limite da API atingido. Tente em {seconds}s.',
+    'chat.prompt.stacks': 'Liste todas as stacks',
+    'chat.prompt.complete': 'Projeto mais completo',
+    'chat.prompt.backend': 'Melhor projeto de backend',
+    'chat.prompt.react': 'Melhor projeto de React',
 
     // Hero
     'hero.kicker': 'Paulo Shizuo',

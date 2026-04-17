@@ -1,0 +1,131 @@
+{
+  "personal": {
+    "name": "Paulo Shizuo Vasconcelos Tatibana",
+    "title": "Full stack developer",
+    "headline": {
+      "pt": "Desenvolvedor Full Stack | Estudante de Ciência da Computação",
+      "en": "Full Stack Developer | Computer Science Student"
+    },
+    "location": "Fortaleza, CE, Brazil",
+    "email": "paulosvtatibana@gmail.com",
+    "phone": "+55 (85) 98563-6838",
+    "github": "https://github.com/Shizu0n",
+    "linkedin": "https://linkedin.com/in/paulo-shizuo",
+    "portfolio": "https://shizu0n.vercel.app"
+  },
+  "bios": {
+    "pt": "Estudante de Ciência da Computação com projetos práticos em Java, Spring Boot, TypeScript e React, focado em desenvolver soluções escaláveis, seguras e com boa clareza de produto. Trabalha com APIs RESTful, arquitetura em camadas, princípios SOLID e persistência relacional, utilizando IA generativa como ferramenta de produtividade sem abrir mão de propriedade técnica e revisão crítica.",
+    "en": "Computer Science student with hands-on projects in Java, Spring Boot, TypeScript, and React, focused on building scalable, secure solutions with clear product thinking. Works with REST APIs, layered architecture, SOLID principles, and relational persistence, using generative AI as a productivity tool while keeping technical ownership and critical review."
+  },
+  "education": [
+    {
+      "institution": "Universidade de Fortaleza (UNIFOR)",
+      "degree": {
+        "pt": "Bacharelado em Ciência da Computação",
+        "en": "Bachelor's Degree in Computer Science"
+      },
+      "period": {
+        "pt": "Jan 2024 - Dez 2027 (previsão)",
+        "en": "Jan 2024 - Dec 2027 (expected)"
+      },
+      "highlights": {
+        "pt": [
+          "Algoritmos",
+          "Estruturas de Dados",
+          "Engenharia de Software",
+          "POO",
+          "Banco de Dados"
+        ],
+        "en": [
+          "Algorithms",
+          "Data Structures",
+          "Software Engineering",
+          "OOP",
+          "Databases"
+        ]
+      }
+    }
+  ],
+  "languages_spoken": [
+    {
+      "name": "Portuguese",
+      "level": {
+        "pt": "Nativo",
+        "en": "Native"
+      }
+    },
+    {
+      "name": "English",
+      "level": {
+        "pt": "Intermediário - leitura técnica e documentação avançada",
+        "en": "Intermediate - technical reading and advanced documentation"
+      }
+    }
+  ],
+  "declared_skills": {
+    "languages": [
+      "Java",
+      "TypeScript",
+      "JavaScript",
+      "Python",
+      "Kotlin",
+      "Ruby"
+    ],
+    "frontend": [
+      "React",
+      "HTML",
+      "CSS",
+      "Vite",
+      "Framer Motion",
+      "Tailwind CSS"
+    ],
+    "backend": [
+      "Spring Boot",
+      "NestJS",
+      "Node.js",
+      "Ruby on Rails",
+      "REST APIs",
+      "Layered Architecture"
+    ],
+    "databases": [
+      "MySQL",
+      "PostgreSQL",
+      "SQLite",
+      "pgvector"
+    ],
+    "tools": [
+      "Git",
+      "GitHub",
+      "Docker",
+      "WSL",
+      "Ubuntu",
+      "Vercel",
+      "Supabase",
+      "EmailJS"
+    ],
+    "methodologies": [
+      "OOP",
+      "SOLID",
+      "Clean Code",
+      "TDD",
+      "Scrum",
+      "Kanban"
+    ],
+    "concepts": [
+      "Authentication",
+      "Authorization",
+      "Responsive UI",
+      "Product Thinking",
+      "Measured Motion",
+      "AI-assisted Development with Technical Ownership"
+    ]
+  },
+  "contact_preferences": {
+    "pt": "Para oportunidades, contato técnico ou currículo em PDF, o canal preferido é email ou LinkedIn.",
+    "en": "For opportunities, technical contact, or a PDF resume, the preferred channel is email or LinkedIn."
+  },
+  "source_notes": [
+    "Primary source: cv.md",
+    "Secondary source: repository README files and current portfolio repository"
+  ]
+}

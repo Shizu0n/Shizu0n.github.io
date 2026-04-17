@@ -1,0 +1,141 @@
+[
+  {
+    "id": "pt-all-stacks",
+    "language": "pt",
+    "question": "Liste todas as stacks do Paulo e diga em quais projetos elas aparecem.",
+    "must_include": [
+      "Java",
+      "TypeScript",
+      "React",
+      "NestJS",
+      "Spring Boot",
+      "MySQL",
+      "SQLite",
+      "Shizu0n CV",
+      "Referral System"
+    ]
+  },
+  {
+    "id": "pt-project-purpose",
+    "language": "pt",
+    "question": "Por que o Delivery System foi implementado e o que ele resolve?",
+    "must_include": [
+      "clientes",
+      "restaurantes",
+      "entregadores",
+      "pedidos",
+      "cardápio"
+    ]
+  },
+  {
+    "id": "pt-best-java",
+    "language": "pt",
+    "question": "Qual projeto você recomenda para mostrar Java?",
+    "must_include": [
+      "Academic System",
+      "Java",
+      "arquitetura",
+      "regras"
+    ]
+  },
+  {
+    "id": "pt-best-complete",
+    "language": "pt",
+    "question": "Qual é o projeto mais completo do Paulo?",
+    "must_include": [
+      "Shizu0n CV",
+      "deploy",
+      "chat",
+      "integrações"
+    ]
+  },
+  {
+    "id": "pt-best-backend",
+    "language": "pt",
+    "question": "Qual é o melhor projeto de backend?",
+    "must_include": [
+      "Academic System",
+      "camadas",
+      "integrações"
+    ]
+  },
+  {
+    "id": "pt-personal",
+    "language": "pt",
+    "question": "Quem é Paulo Shizuo e onde ele estuda?",
+    "must_include": [
+      "Ciência da Computação",
+      "UNIFOR",
+      "Fortaleza"
+    ]
+  },
+  {
+    "id": "en-all-stacks",
+    "language": "en",
+    "question": "List all Paulo's stacks and relate them to his projects.",
+    "must_include": [
+      "Java",
+      "TypeScript",
+      "React",
+      "NestJS",
+      "Spring Boot",
+      "Delivery System",
+      "Academic System"
+    ]
+  },
+  {
+    "id": "en-react-recommendation",
+    "language": "en",
+    "question": "Which project best represents Paulo's React work?",
+    "must_include": [
+      "Shizu0n CV",
+      "React",
+      "frontend",
+      "polish"
+    ]
+  },
+  {
+    "id": "en-nestjs",
+    "language": "en",
+    "question": "Show me Paulo's NestJS project and explain why it matters.",
+    "must_include": [
+      "Referral System",
+      "NestJS",
+      "JWT",
+      "TypeORM"
+    ]
+  },
+  {
+    "id": "en-spring",
+    "language": "en",
+    "question": "What project should I look at for Spring Boot?",
+    "must_include": [
+      "Gym Management System",
+      "Spring Boot",
+      "Java Swing",
+      "MySQL"
+    ]
+  },
+  {
+    "id": "en-metrics",
+    "language": "en",
+    "question": "Give me engineering and functional metrics for Delivery System.",
+    "must_include": [
+      "roles",
+      "API",
+      "frontend",
+      "backend",
+      "orders"
+    ]
+  },
+  {
+    "id": "en-unknown-fact",
+    "language": "en",
+    "question": "How many production users does Paulo's chatbot have today?",
+    "must_include": [
+      "don't have",
+      "not in",
+      "contact"
+    ]
+  }
+]

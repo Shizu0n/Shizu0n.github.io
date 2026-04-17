@@ -1,0 +1,383 @@
+[
+  {
+    "id": "academic-system",
+    "repo": "AcademicSystem",
+    "display_name": "Academic System",
+    "status": "completed",
+    "aliases": ["academic system", "academicsystem", "sistema academico", "sistema acadêmico", "unifor system"],
+    "summary_pt": "Sistema acadêmico em Java para matrícula e biblioteca, com regras de negócio explícitas, persistência em MySQL e integração com microsserviços externos.",
+    "summary_en": "Java academic management system for enrollment and library operations, with explicit business rules, MySQL persistence, and integration with external microservices.",
+    "problem": {
+      "pt": "Sistemas acadêmicos precisam validar matrículas, disponibilidade de vagas e reservas de biblioteca sem perder consistência de regras e dados.",
+      "en": "Academic systems need to validate enrollments, seat availability, and library reservations without losing business-rule and data consistency."
+    },
+    "why_built": {
+      "pt": "Foi construído para praticar arquitetura em camadas, regras de negócio fortes e integração entre persistência local e serviços externos em um domínio acadêmico realista.",
+      "en": "It was built to practice layered architecture, strong business rules, and the integration between local persistence and external services in a realistic academic domain."
+    },
+    "solution": {
+      "pt": "Aplicação Java com camadas de Controller, Service, Repository e View, validando matrículas, reservas e consultas enquanto integra três APIs externas e armazena operações localmente em MySQL.",
+      "en": "A Java application with Controller, Service, Repository, and View layers, validating enrollments, reservations, and lookups while integrating three external APIs and storing operations locally in MySQL."
+    },
+    "what_it_solves": {
+      "pt": "Centraliza consultas acadêmicas, controle de matrículas e biblioteca com regras explícitas para curso, status do aluno, vagas e reservas.",
+      "en": "It centralizes academic lookups, enrollment control, and library flows with explicit rules for course compatibility, student status, seat availability, and reservations."
+    },
+    "target_users": {
+      "roles": ["Academic staff", "Administrative operators"],
+      "pt": "Operadores acadêmicos responsáveis por matrícula, consulta e biblioteca.",
+      "en": "Academic operators responsible for enrollment, lookup, and library operations."
+    },
+    "key_features": ["Student lookup", "Course and subject lookup", "Book lookup", "Enrollment with rule validation", "Enrollment cancellation", "Enrollment history", "Book reservation", "Reservation cancellation", "Reservation history", "Parallel cache warm-up for external services"],
+    "architecture": {
+      "style": "Layered architecture",
+      "pt": "Arquitetura em camadas com ConsoleView, controllers especializados, services de orquestração, repositories JDBC/MySQL e fachada para microsserviços externos.",
+      "en": "Layered architecture with ConsoleView, specialized controllers, orchestration services, JDBC/MySQL repositories, and a facade for external microservices.",
+      "patterns": ["Factory Pattern", "Facade Pattern", "Repository Pattern", "Manual Dependency Injection"]
+    },
+    "data_model": {
+      "entities": ["Discente", "Disciplina", "Livro", "Matricula", "ReservaLivro"],
+      "pt": "Modelo relacional centrado em matrícula e reserva, com exceções específicas para regras de domínio.",
+      "en": "Relational model centered on enrollments and reservations, with domain-specific exceptions for rule enforcement."
+    },
+    "auth": {
+      "mode": "none_explicit",
+      "pt": "Não há autenticação de usuários finais explicitamente documentada no repositório.",
+      "en": "There is no explicitly documented end-user authentication flow in the repository."
+    },
+    "integrations": {
+      "components": ["Student API", "Subjects API", "Library API", "MySQL"],
+      "pt": "Integra três microsserviços REST externos e persiste operações locais em MySQL.",
+      "en": "It integrates three external REST microservices and persists local operations in MySQL."
+    },
+    "frontend_stack": ["Java", "Console UI"],
+    "backend_stack": ["Java 21", "JDBC", "Gson", "dotenv-java"],
+    "database_stack": ["MySQL 8.0"],
+    "tooling_stack": ["javac", "JAR dependencies", "Git"],
+    "all_stacks": ["Java", "Java 21", "MySQL 8.0", "JDBC", "Gson", "dotenv-java", "REST APIs", "Layered Architecture"],
+    "metrics_engineering": {
+      "api_surface": {
+        "external_services_count": 3,
+        "service_types": ["Student data", "Subjects data", "Library catalog"]
+      },
+      "modules": ["controller", "service", "repository", "model", "exception", "view", "util", "sql"]
+    },
+    "metrics_functional": {
+      "domain_areas": ["Academic lookup", "Enrollment management", "Library reservation"],
+      "primary_flows": ["Lookup student", "Lookup subjects by course", "Enroll in subject", "Cancel enrollment", "Reserve book", "Cancel reservation"]
+    },
+    "strengths": ["Clear layered architecture", "Strong business-rule enforcement", "Good Java backend signaling", "Explicit external integration model", "Detailed README with technical structure"],
+    "tradeoffs": ["Console UI instead of graphical or web UI", "No documented automated test suite", "No explicit authentication layer"],
+    "recommendation_tags": ["java", "backend", "business-rules", "data-modeling", "integrations", "clean-architecture"],
+    "evidence_sources": [
+      { "kind": "cv", "locator": "cv.md", "note": "Project listed in practical experience and technical skills." },
+      { "kind": "github_description", "locator": "Shizu0n/AcademicSystem", "note": "Repository description confirms Java + MySQL." },
+      { "kind": "github_readme", "locator": "Shizu0n/AcademicSystem/README.md", "note": "README documents features, architecture, patterns, and external APIs." }
+    ]
+  },
+  {
+    "id": "delivery-system",
+    "repo": "DeliverySystem",
+    "display_name": "Delivery System",
+    "status": "completed",
+    "aliases": ["delivery system", "deliverysystem", "sistema de delivery", "delivery app"],
+    "summary_pt": "Sistema full stack de delivery com múltiplos papéis, autenticação JWT, CRUD operacional e domínio amplo de pedidos, cardápio, entregas e avaliações.",
+    "summary_en": "Full-stack delivery system with multiple user roles, JWT authentication, operational CRUD flows, and a broader domain covering orders, menus, deliveries, and reviews.",
+    "problem": {
+      "pt": "Um sistema de delivery precisa coordenar clientes, restaurantes e entregadores sem perder clareza operacional entre pedidos, cardápio, endereços, entregas e avaliações.",
+      "en": "A delivery system must coordinate customers, restaurants, and couriers without losing operational clarity across orders, menus, addresses, deliveries, and reviews."
+    },
+    "why_built": {
+      "pt": "Foi construído para praticar um domínio full stack mais completo, com múltiplos papéis de usuário, API REST e autenticação aplicadas a uma operação de delivery.",
+      "en": "It was built to practice a more complete full-stack domain, with multiple user roles, a REST API, and authentication applied to delivery operations."
+    },
+    "solution": {
+      "pt": "Aplicação React + Node.js com backend autenticado via JWT, banco MySQL, separação frontend/backend e funcionalidades específicas para cliente, restaurante e entregador.",
+      "en": "A React + Node.js application with a JWT-authenticated backend, MySQL database, explicit frontend/backend separation, and role-specific flows for customers, restaurants, and couriers."
+    },
+    "what_it_solves": {
+      "pt": "Organiza o ciclo completo de pedidos, gerenciamento de cardápio, endereços, entregas e avaliações em um único sistema operacional.",
+      "en": "It organizes the full cycle of orders, menu management, addresses, deliveries, and reviews in a single operational system."
+    },
+    "target_users": {
+      "roles": ["Customers", "Restaurants", "Couriers"],
+      "pt": "Clientes fazem pedidos, restaurantes administram o catálogo e entregadores operam a entrega.",
+      "en": "Customers place orders, restaurants manage the catalog, and couriers handle delivery execution."
+    },
+    "key_features": ["Multiple addresses per customer", "Restaurant profile and address management", "Menu category CRUD", "Menu item CRUD", "Order creation", "Delivery role flows", "Review system with score and comment", "JWT authentication", "Security headers with Helmet"],
+    "architecture": {
+      "style": "Full-stack split by frontend/backend/database",
+      "pt": "Estrutura full stack separando frontend React, backend Node.js e recursos de banco/diagramas, com Context API no cliente e API REST no servidor.",
+      "en": "Full-stack structure separating a React frontend, Node.js backend, and database/diagram assets, with Context API on the client and a REST API on the server.",
+      "patterns": ["REST API", "Context API", "Role-based product flows"]
+    },
+    "data_model": {
+      "entities": ["Customer", "Address", "Restaurant", "Category", "Menu Item", "Order", "Courier", "Review"],
+      "pt": "Modelo de dados orientado ao fluxo operacional de delivery, cobrindo catálogo, pedido, entrega e avaliação.",
+      "en": "A data model oriented around delivery operations, covering catalog, ordering, delivery, and review flows."
+    },
+    "auth": {
+      "mode": "jwt",
+      "pt": "Autenticação via JWT com expiração e proteção complementar por bcrypt e Helmet.",
+      "en": "JWT authentication with expiration, complemented by bcrypt and Helmet."
+    },
+    "integrations": {
+      "components": ["MySQL", "JWT", "Helmet", "CORS"],
+      "pt": "Integra persistência relacional, autenticação JWT e camadas básicas de segurança no backend.",
+      "en": "It integrates relational persistence, JWT authentication, and baseline backend security layers."
+    },
+    "frontend_stack": ["React", "JavaScript", "CSS", "Context API"],
+    "backend_stack": ["Node.js", "JavaScript", "JWT", "bcrypt.js", "Helmet", "CORS"],
+    "database_stack": ["MySQL"],
+    "tooling_stack": ["npm", "Environment variables", "Diagrams"],
+    "all_stacks": ["React", "JavaScript", "Node.js", "MySQL", "JWT", "bcrypt.js", "Helmet", "CORS", "Context API", "REST API"],
+    "metrics_engineering": {
+      "api_surface": {
+        "endpoint_groups": ["Authentication", "Addresses", "Restaurant categories", "Menu items", "Orders", "Couriers", "Reviews"]
+      },
+      "modules": ["backend", "frontend", "database", "diagrams"]
+    },
+    "metrics_functional": {
+      "domain_areas": ["Ordering", "Catalog management", "Delivery execution", "Reviews"],
+      "primary_flows": ["Register/login", "Manage addresses", "Manage categories and menu items", "Create order", "Courier flow", "Review restaurant"]
+    },
+    "strengths": ["Broadest business-domain coverage among the portfolio apps", "Multiple user roles", "Full-stack split with database and diagrams", "Clear JWT and backend security basics", "Good candidate for operational system discussions"],
+    "tradeoffs": ["No TypeScript on the main application stack", "No explicit production deployment evidence", "Automated test coverage is not clearly documented"],
+    "recommendation_tags": ["javascript", "react", "nodejs", "mysql", "jwt", "full-stack", "operations", "rest-api"],
+    "evidence_sources": [
+      { "kind": "cv", "locator": "cv.md", "note": "Project listed in practical experience." },
+      { "kind": "github_description", "locator": "Shizu0n/DeliverySystem", "note": "Repository description confirms MySQL + React + Node.js." },
+      { "kind": "github_readme", "locator": "Shizu0n/DeliverySystem/README.md", "note": "README documents roles, features, API groups, security, and diagrams." },
+      { "kind": "github_tree", "locator": "Shizu0n/DeliverySystem", "note": "Repository tree confirms backend/frontend/database split and high file count." }
+    ]
+  },
+  {
+    "id": "gym-management",
+    "repo": "GymManagement",
+    "display_name": "Gym Management System",
+    "status": "completed",
+    "aliases": ["gym management", "gymmanagement", "gym management system", "sistema de academia", "academia"],
+    "summary_pt": "Sistema de gestão de academia com foco em administração de alunos, planos, pagamentos, treinos, avaliações físicas e frequência.",
+    "summary_en": "Gym management system focused on administering students, plans, payments, workouts, physical assessments, and attendance.",
+    "problem": {
+      "pt": "Academias precisam controlar cadastro, planos, pagamentos, treinos e frequência em um único fluxo administrativo.",
+      "en": "Gyms need to control registration, plans, payments, workouts, and attendance within a single administrative flow."
+    },
+    "why_built": {
+      "pt": "Foi construído para praticar modelagem de domínio de um sistema administrativo rico, combinando Java, Spring Boot, Java Swing e MySQL.",
+      "en": "It was built to practice rich administrative domain modeling by combining Java, Spring Boot, Java Swing, and MySQL."
+    },
+    "solution": {
+      "pt": "Sistema desktop com interface em Java Swing, backend em Java/Spring Boot e persistência em MySQL para administrar alunos, instrutores, planos, pagamentos, treinos e check-ins.",
+      "en": "A desktop system with a Java Swing interface, Java/Spring Boot backend, and MySQL persistence to manage students, instructors, plans, payments, workouts, and check-ins."
+    },
+    "what_it_solves": {
+      "pt": "Concentra a operação de academia em um sistema só, reduzindo dispersão entre cadastro, financeiro, treino e acompanhamento físico.",
+      "en": "It consolidates gym operations into a single system, reducing fragmentation across registration, finances, workouts, and physical follow-up."
+    },
+    "target_users": {
+      "roles": ["Gym admins", "Staff", "Instructors"],
+      "pt": "Administradores e equipe operacional de academia, com apoio a gestão de instrutores e alunos.",
+      "en": "Gym administrators and operational staff, with support for instructor and student management."
+    },
+    "key_features": ["Student management", "Instructor management", "Plan management", "Enrollment control", "Payment tracking", "Workout plan creation", "Physical assessment history", "Attendance and check-in control"],
+    "architecture": {
+      "style": "Desktop administration system",
+      "pt": "Sistema desktop de administração com modelagem documentada por diagramas e combinação de interface Swing, persistência MySQL e backend em Java/Spring Boot.",
+      "en": "Desktop administration system with diagrammed modeling and a combination of Swing UI, MySQL persistence, and a Java/Spring Boot backend.",
+      "patterns": ["Desktop UI", "Domain modeling", "Relational persistence"]
+    },
+    "data_model": {
+      "entities": ["Student", "Instructor", "Plan", "Enrollment", "Payment", "Workout", "Physical Assessment", "Attendance"],
+      "pt": "Modelo de domínio centrado na gestão operacional da academia, cobrindo financeiro, treino e acompanhamento físico.",
+      "en": "Domain model centered on gym operations, covering finances, workouts, and physical follow-up."
+    },
+    "auth": {
+      "mode": "not_documented",
+      "pt": "O repositório não documenta uma camada explícita de autenticação ou autorização.",
+      "en": "The repository does not document an explicit authentication or authorization layer."
+    },
+    "integrations": {
+      "components": ["MySQL", "Java Swing", "Spring Boot"],
+      "pt": "Integra interface desktop, backend Java/Spring Boot e banco relacional MySQL.",
+      "en": "It integrates a desktop UI, Java/Spring Boot backend, and a MySQL relational database."
+    },
+    "frontend_stack": ["Java Swing"],
+    "backend_stack": ["Java", "Spring Boot"],
+    "database_stack": ["MySQL"],
+    "tooling_stack": ["Gradle", "MySQL Workbench", "Environment variables"],
+    "all_stacks": ["Java", "Spring Boot", "Java Swing", "MySQL", "Gradle"],
+    "metrics_engineering": {
+      "api_surface": {
+        "external_services_count": 0,
+        "notes": "No external API surface is explicitly documented."
+      },
+      "modules": ["demo", "diagrams"]
+    },
+    "metrics_functional": {
+      "domain_areas": ["Student administration", "Instructor administration", "Plans and enrollment", "Payments", "Workout management", "Attendance"],
+      "primary_flows": ["Manage students and instructors", "Manage plans and enrollments", "Track payments", "Create workout plans", "Track physical assessments", "Register attendance"]
+    },
+    "strengths": ["Rich administrative domain", "Desktop plus backend composition", "Spring Boot in the portfolio stack", "Useful project for gym/business system conversations"],
+    "tradeoffs": ["Repository documentation is thinner than the strongest projects", "No explicit auth or test evidence", "GitHub language breakdown is unavailable through the API"],
+    "recommendation_tags": ["java", "spring-boot", "java-swing", "mysql", "desktop", "domain-modeling"],
+    "evidence_sources": [
+      { "kind": "cv", "locator": "cv.md", "note": "CV states Spring Boot, Java Swing, MySQL, and layered design." },
+      { "kind": "github_description", "locator": "Shizu0n/GymManagement", "note": "Repository description confirms SpringBoot, JavaSwing, and MySQL." },
+      { "kind": "github_readme", "locator": "Shizu0n/GymManagement/README.md", "note": "README lists functional scope and technology/tooling setup." }
+    ]
+  },
+  {
+    "id": "referral-system",
+    "repo": "ReferralSystem",
+    "display_name": "Referral System",
+    "status": "completed",
+    "aliases": ["referral system", "referralsystem", "sistema de indicação", "sistema de indicacao", "indicação", "indicacao"],
+    "summary_pt": "Sistema full stack de indicação com React, TypeScript, NestJS, SQLite e autenticação JWT, construído para demonstrar fluxo de usuários, autenticação e modelagem relacional recursiva.",
+    "summary_en": "Full-stack referral system with React, TypeScript, NestJS, SQLite, and JWT authentication, built to demonstrate user flows, authentication, and recursive relational modeling.",
+    "problem": {
+      "pt": "Sistemas de indicação precisam registrar usuários com segurança, preservar vínculo entre indicado e quem indicou, e expor isso de forma simples para o usuário.",
+      "en": "Referral systems need to register users securely, preserve the relationship between the invited user and the referrer, and expose that flow simply to the user."
+    },
+    "why_built": {
+      "pt": "Foi construído para praticar NestJS, TypeScript full stack, autenticação JWT, modelagem com TypeORM e um fluxo de produto enxuto, mas completo.",
+      "en": "It was built to practice NestJS, full-stack TypeScript, JWT authentication, TypeORM modeling, and a lean but complete product flow."
+    },
+    "solution": {
+      "pt": "SPA React em TypeScript com backend NestJS e SQLite, usando JWT, links de indicação, página de perfil, validação e Context API para orquestrar autenticação e experiência do usuário.",
+      "en": "A TypeScript React SPA with a NestJS and SQLite backend, using JWT, referral links, a profile page, validation, and Context API to orchestrate authentication and user experience."
+    },
+    "what_it_solves": {
+      "pt": "Entrega um fluxo completo de registro, login, indicação e acompanhamento de perfil em um sistema de escopo enxuto, porém tecnicamente consistente.",
+      "en": "It delivers a complete registration, login, referral, and profile flow in a lean but technically consistent system."
+    },
+    "target_users": {
+      "roles": ["Registered users", "Invited users"],
+      "pt": "Usuários que se cadastram, entram no sistema e compartilham links de indicação.",
+      "en": "Users who sign up, log in, and share referral links."
+    },
+    "key_features": ["Secure login", "Registration flow", "Session persistence", "Referral link generation", "Copy referral link", "Profile page", "Protected routes", "Toasts and feedback states", "404 page", "JWT auth decorators and guards"],
+    "architecture": {
+      "style": "Modular full-stack architecture",
+      "pt": "Backend NestJS organizado em módulos de auth, users, common e database; frontend React organizado por componentes, contexts, pages, services, utils e config.",
+      "en": "NestJS backend organized into auth, users, common, and database modules; React frontend organized by components, contexts, pages, services, utils, and config.",
+      "patterns": ["NestJS modules", "Guards", "Decorators", "TypeORM relations", "Context API"]
+    },
+    "data_model": {
+      "entities": ["User", "Referral relationship"],
+      "pt": "Modelagem relacional com usuário referenciando outro usuário via relação recursiva no TypeORM.",
+      "en": "Relational modeling where a user references another user through a recursive TypeORM relation."
+    },
+    "auth": {
+      "mode": "jwt",
+      "pt": "JWT com guards, decorators customizados, hash de senha e rotas protegidas.",
+      "en": "JWT with guards, custom decorators, password hashing, and protected routes."
+    },
+    "integrations": {
+      "components": ["SQLite", "TypeORM", "JWT"],
+      "pt": "Integra TypeORM, SQLite e autenticação JWT para um fluxo completo de usuários.",
+      "en": "It integrates TypeORM, SQLite, and JWT authentication for a complete user flow."
+    },
+    "frontend_stack": ["React 18", "TypeScript", "Vite", "React Router DOM", "CSS", "Context API"],
+    "backend_stack": ["NestJS", "TypeScript", "TypeORM", "class-validator", "JWT", "bcrypt"],
+    "database_stack": ["SQLite"],
+    "tooling_stack": ["npm", "Environment variables", "Cursor AI"],
+    "all_stacks": ["NestJS", "TypeScript", "React 18", "Vite", "React Router DOM", "SQLite", "TypeORM", "JWT", "bcrypt", "Context API", "CSS", "class-validator"],
+    "metrics_engineering": {
+      "api_surface": {
+        "backend_modules": ["auth", "users", "common", "database"]
+      },
+      "modules": ["backend/src/auth", "backend/src/users", "backend/src/common", "frontend/src/components", "frontend/src/contexts", "frontend/src/pages", "frontend/src/services"]
+    },
+    "metrics_functional": {
+      "domain_areas": ["Authentication", "Referral flow", "Profile management"],
+      "primary_flows": ["Register user", "Log in", "Persist session", "Generate referral link", "Copy referral link", "Access protected profile"]
+    },
+    "strengths": ["Strongest NestJS example in the portfolio", "Clear JWT and auth structure", "Good TypeScript full-stack signal", "Well-documented architecture and learning process"],
+    "tradeoffs": ["Smaller domain scope than Delivery System", "No explicit production deployment evidence", "Automated test evidence is limited"],
+    "recommendation_tags": ["nestjs", "typescript", "react", "sqlite", "jwt", "typeorm", "auth", "referral"],
+    "evidence_sources": [
+      { "kind": "cv", "locator": "cv.md", "note": "CV states NestJS, React, SQLite, JWT, and SOLID usage." },
+      { "kind": "github_description", "locator": "Shizu0n/ReferralSystem", "note": "Repository description confirms React + TypeScript + NestJS + SQLite + AI." },
+      { "kind": "github_readme", "locator": "Shizu0n/ReferralSystem/README.md", "note": "README documents architecture, auth flow, TypeORM relation, and feature set." },
+      { "kind": "github_tree", "locator": "Shizu0n/ReferralSystem", "note": "Tree confirms frontend/backend split with modular NestJS and React structure." }
+    ]
+  },
+  {
+    "id": "shizu0n-cv",
+    "repo": "Shizu0n-CV",
+    "display_name": "Shizu0n CV",
+    "status": "active",
+    "aliases": ["shizu0n cv", "portfolio", "portfolio site", "shizu0n-cv", "this portfolio", "site"],
+    "summary_pt": "Portfólio autoral em React e TypeScript com motion editorial, GitHub stats, contato e chatbot com IA usando RAG sobre a própria trajetória técnica.",
+    "summary_en": "Authorial portfolio in React and TypeScript focused on editorial motion, GitHub stats, contact flows, and an AI chatbot using RAG over Paulo's own technical history.",
+    "problem": {
+      "pt": "Um portfólio padrão comunica pouco sobre profundidade técnica e raramente permite exploração dinâmica sobre projetos, stacks e perfil profissional.",
+      "en": "A standard portfolio communicates little about technical depth and rarely allows dynamic exploration of projects, stacks, and professional profile."
+    },
+    "why_built": {
+      "pt": "Foi construído para apresentar Paulo em um formato mais autoral, com melhor direção visual, integração com GitHub e um chatbot capaz de responder perguntas contextuais sobre a carreira e os projetos.",
+      "en": "It was built to present Paulo in a more authorial format, with stronger visual direction, GitHub integration, and a chatbot capable of answering contextual questions about his career and projects."
+    },
+    "solution": {
+      "pt": "Single-page app em React 19 e TypeScript, com hero scroll-driven, navegação responsiva, estatísticas do GitHub, contato com fallback e backend serverless para chat com múltiplos provedores e Supabase pgvector.",
+      "en": "A React 19 and TypeScript single-page app with a scroll-driven hero, responsive navigation, GitHub statistics, contact flow with fallback, and a serverless chat backend with multiple providers and Supabase pgvector."
+    },
+    "what_it_solves": {
+      "pt": "Transforma o portfólio em uma experiência técnica mais explorável, unindo apresentação visual, contato e recuperação de conhecimento sobre Paulo e seus projetos.",
+      "en": "It turns the portfolio into a more explorable technical experience, combining visual presentation, contact, and knowledge retrieval about Paulo and his projects."
+    },
+    "target_users": {
+      "roles": ["Recruiters", "Hiring managers", "Potential clients", "Peers"],
+      "pt": "Pessoas avaliando o perfil técnico de Paulo e querendo navegar rapidamente por projetos, stack e contexto profissional.",
+      "en": "People evaluating Paulo's technical profile and wanting to navigate quickly through projects, stack, and professional context."
+    },
+    "key_features": ["Scroll-driven hero storytelling", "Responsive fixed navigation", "GitHub stats with caching", "Curated project showcase", "Contact form with EmailJS fallback", "PT/EN support", "Floating AI chat widget", "Streaming SSE chat backend", "Provider fallback chain", "Supabase vector retrieval"],
+    "architecture": {
+      "style": "Frontend plus serverless AI backend",
+      "pt": "Frontend React organizado em sections, contexts e hooks; backend Vercel em api com SSE, segurança, provider fallback e RAG em Supabase; estilo visual centralizado em src/index.css.",
+      "en": "React frontend organized into sections, contexts, and hooks; Vercel backend in api with SSE, security, provider fallback, and Supabase RAG; visual style centralized in src/index.css.",
+      "patterns": ["Single-page scrollytelling", "Serverless API", "Provider fallback", "Retrieval-Augmented Generation"]
+    },
+    "data_model": {
+      "entities": ["Portfolio knowledge base", "Chat chunks", "Embedding cache", "GitHub stats cache"],
+      "pt": "Modelo híbrido entre conteúdo de portfólio, chunks vetoriais, cache de embeddings e dados do GitHub para resposta contextual.",
+      "en": "A hybrid model combining portfolio content, vector chunks, embedding cache, and GitHub data for contextual answers."
+    },
+    "auth": {
+      "mode": "none_explicit",
+      "pt": "Não há autenticação de usuários finais; o foco está em conteúdo público, proteção básica de API e rate limiting.",
+      "en": "There is no end-user authentication; the focus is on public content, basic API protection, and rate limiting."
+    },
+    "integrations": {
+      "components": ["GitHub API", "EmailJS", "Gemini API", "Groq", "OpenRouter", "Cloudflare Workers AI", "Supabase pgvector", "Vercel"],
+      "pt": "Integra dados do GitHub, envio de contato, múltiplos provedores de LLM e Supabase para RAG.",
+      "en": "It integrates GitHub data, contact delivery, multiple LLM providers, and Supabase for RAG."
+    },
+    "frontend_stack": ["React 19", "TypeScript", "Vite 7", "Framer Motion 12", "Lenis", "Tailwind CSS 4", "CSS"],
+    "backend_stack": ["Vercel Functions", "JavaScript", "Server-Sent Events", "Gemini API", "Groq", "OpenRouter", "Cloudflare Workers AI"],
+    "database_stack": ["Supabase", "PostgreSQL", "pgvector"],
+    "tooling_stack": ["ESLint", "Prettier", "TypeScript type-check", "Playwright", "Vercel"],
+    "all_stacks": ["React 19", "TypeScript", "Vite 7", "Framer Motion 12", "Lenis", "Tailwind CSS 4", "JavaScript", "Vercel Functions", "Server-Sent Events", "Gemini API", "Groq", "OpenRouter", "Cloudflare Workers AI", "Supabase", "PostgreSQL", "pgvector", "GitHub API", "EmailJS", "ESLint", "Prettier", "Playwright"],
+    "metrics_engineering": {
+      "api_surface": {
+        "serverless_routes": ["/api/chat", "/api/health"],
+        "provider_chain": ["gemini", "groq", "openrouter", "cloudflare"]
+      },
+      "modules": ["src/components", "src/contexts", "src/hooks", "src/sections", "api", "data", "scripts", "supabase/migrations"]
+    },
+    "metrics_functional": {
+      "domain_areas": ["Portfolio presentation", "Project showcase", "Contact flow", "AI Q&A"],
+      "primary_flows": ["Read hero and sections", "Inspect GitHub-backed stats", "Browse selected projects", "Send contact message", "Ask questions in PT or EN"]
+    },
+    "strengths": ["Most polished frontend in the portfolio", "Live deploy and current maintenance", "Strongest AI and integration story", "Bilingual UX plus chat", "Good mix of product presentation and implementation depth"],
+    "tradeoffs": ["Public-content site rather than a business CRUD system", "Chat accuracy depends on knowledge curation quality", "Local dev chat behavior depends on backend availability"],
+    "recommendation_tags": ["react", "typescript", "frontend", "portfolio", "ai", "rag", "supabase", "vercel", "framer-motion"],
+    "evidence_sources": [
+      { "kind": "local_repo", "locator": "AGENTS.md", "note": "Repository architecture snapshot and current stack." },
+      { "kind": "github_description", "locator": "Shizu0n/Shizu0n-CV", "note": "Repository description confirms React + TypeScript + AI." },
+      { "kind": "github_readme", "locator": "Shizu0n/Shizu0n-CV/README.md", "note": "README documents goals, stack, architecture, integrations, and deployment." },
+      { "kind": "local_repo", "locator": "api/chat.js", "note": "Current chat backend documents SSE, provider fallback, and RAG implementation." }
+    ]
+  }
+]
