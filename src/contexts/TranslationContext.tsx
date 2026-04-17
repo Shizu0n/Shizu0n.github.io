@@ -32,6 +32,15 @@ const translations = {
     'chat.prompt.complete': 'Most complete project',
     'chat.prompt.backend': 'Best backend project',
     'chat.prompt.react': 'Best React project',
+    'chat.prelude.intro': "Hi! I'm Paulo Shizuo. Ask about my experience, top projects, why teams hire me, or how to contact me.",
+    'chat.quick.experience.label': 'Experience',
+    'chat.quick.experience.prompt': 'Tell me about your experience and the type of problems you solve best.',
+    'chat.quick.topProjects.label': 'Top Projects',
+    'chat.quick.topProjects.prompt': 'Show me your top projects and explain why they stand out.',
+    'chat.quick.whyHire.label': 'Why hire you?',
+    'chat.quick.whyHire.prompt': 'Why should a company hire you? Share direct, practical reasons.',
+    'chat.quick.contact.label': 'Contact',
+    'chat.quick.contact.prompt': 'How can I contact you for internships, freelance work, or opportunities?',
 
     // Hero
     'hero.kicker': 'Paulo Shizuo',
@@ -105,6 +114,15 @@ const translations = {
     'chat.prompt.complete': 'Projeto mais completo',
     'chat.prompt.backend': 'Melhor projeto de backend',
     'chat.prompt.react': 'Melhor projeto de React',
+    'chat.prelude.intro': 'Oi! Sou Paulo Shizuo. Pergunte sobre minha experiência, projetos principais, por que me contratar ou como entrar em contato.',
+    'chat.quick.experience.label': 'Experiência',
+    'chat.quick.experience.prompt': 'Me fale sobre sua experiência e os tipos de problema que você resolve melhor.',
+    'chat.quick.topProjects.label': 'Top projetos',
+    'chat.quick.topProjects.prompt': 'Mostre seus principais projetos e por que eles se destacam.',
+    'chat.quick.whyHire.label': 'Por que me contratar?',
+    'chat.quick.whyHire.prompt': 'Por que uma empresa deveria te contratar? Traga razões diretas e práticas.',
+    'chat.quick.contact.label': 'Contato',
+    'chat.quick.contact.prompt': 'Como posso entrar em contato para estágio, freelance ou oportunidades?',
 
     // Hero
     'hero.kicker': 'Paulo Shizuo',

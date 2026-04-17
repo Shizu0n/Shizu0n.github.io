@@ -1011,8 +1011,7 @@
         "gym management",
         "gymmanagement",
         "gym management system",
-        "sistema de academia",
-        "academia"
+        "sistema de academia"
       ],
       "summary_pt": "Sistema de gestão de academia com foco em administração de alunos, planos, pagamentos, treinos, avaliações físicas e frequência.",
       "summary_en": "Gym management system focused on administering students, plans, payments, workouts, physical assessments, and attendance.",
@@ -1283,9 +1282,7 @@
         "referral system",
         "referralsystem",
         "sistema de indicação",
-        "sistema de indicacao",
-        "indicação",
-        "indicacao"
+        "sistema de indicacao"
       ],
       "summary_pt": "Sistema full stack de indicação com React, TypeScript, NestJS, SQLite e autenticação JWT, construído para demonstrar fluxo de usuários, autenticação e modelagem relacional recursiva.",
       "summary_en": "Full-stack referral system with React, TypeScript, NestJS, SQLite, and JWT authentication, built to demonstrate user flows, authentication, and recursive relational modeling.",
@@ -1654,11 +1651,9 @@
       "status": "active",
       "aliases": [
         "shizu0n cv",
-        "portfolio",
         "portfolio site",
         "shizu0n-cv",
-        "this portfolio",
-        "site"
+        "this portfolio"
       ],
       "summary_pt": "Portfólio autoral em React e TypeScript com motion editorial, GitHub stats, contato e chatbot com IA usando RAG sobre a própria trajetória técnica.",
       "summary_en": "Authorial portfolio in React and TypeScript focused on editorial motion, GitHub stats, contact flows, and an AI chatbot using RAG over Paulo's own technical history.",

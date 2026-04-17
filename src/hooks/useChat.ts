@@ -86,6 +86,7 @@ export interface ChatMessage {
   content: string;
   timestamp: number;
   failed?: boolean;
+  intent?: string | null;
 }
 
 export interface QuotaInfo {
@@ -164,7 +165,8 @@ export function useChat() {
         id: assistantMessageId,
         role: 'assistant',
         content: '',
-        timestamp: Date.now()
+        timestamp: Date.now(),
+        intent: null
       }
     ]);
 
@@ -222,6 +224,14 @@ export function useChat() {
           }
 
           const contentType = response.headers.get('content-type')?.toLowerCase() ?? '';
+          const responseIntent = response.headers.get('x-chat-intent');
+
+          if (responseIntent) {
+            setMessages(prev => prev.map(m =>
+              m.id === assistantMessageId ? { ...m, intent: responseIntent } : m
+            ));
+          }
+
           if (!contentType.includes('text/event-stream')) {
             if (hasFallback) {
               lastError = new Error('Invalid chat response format.');

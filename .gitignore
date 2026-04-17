@@ -50,3 +50,4 @@ graphify-out/
 .graphify_python
 .mcp.json
 skills-lock.json
+.playwright-mcp/

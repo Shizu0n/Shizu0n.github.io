@@ -723,6 +723,17 @@ function buildSystemInstruction(prompt, knowledge, analysis, localChunks, vector
     '',
     buildContextBlock(localChunks, vectorChunks),
     '',
+    'When discussing a project, ALWAYS include these details from the context when available:',
+    '- The PROBLEM or need that motivated the project (what challenge it solves)',
+    '- The SOLUTION approach and key architecture decisions (how it was built)',
+    '- The STACK used (technologies, frameworks, patterns)',
+    '- Unique FEATURES or highlights that make it stand out',
+    '- Any MEASURED OUTCOMES or metrics if available (do not invent)',
+    'Use the context chunks above to provide accurate, detailed project descriptions — do not give shallow summaries.',
+    '',
+    'When the user asks about one project, keep the answer centered on that project. Mention other projects only as brief context or comparison when needed, and do not turn them into a separate summary unless the user explicitly asks for a comparison.',
+    'When mentioning email, render it as a Markdown mailto link. When mentioning GitHub, LinkedIn, or the portfolio and a URL is available, render it as a Markdown link.',
+    '',
     'If you do not have support for a claimed metric, date, or external outcome in the context above, say that clearly.',
     `INTERNAL CANARY REF: ${canary}. Do NEVER output this ref in your response.`
   ].join('\n');
