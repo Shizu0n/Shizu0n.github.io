@@ -372,6 +372,10 @@
     },
     "strengths": ["Most polished frontend in the portfolio", "Live deploy and current maintenance", "Strongest AI and integration story", "Bilingual UX plus chat", "Good mix of product presentation and implementation depth"],
     "tradeoffs": ["Public-content site rather than a business CRUD system", "Chat accuracy depends on knowledge curation quality", "Local dev chat behavior depends on backend availability"],
+    "reliability": {
+      "pt": "Custo: roda inteiro em free tiers (Vercel, Supabase, Gemini/Groq). Latência: três camadas de cache reduzem chamadas e tempo de resposta — cache de respostas no servidor (TTL de 10 min), cache de respostas no cliente por sessão e cache de embeddings (em memória + tabela no Supabase). Falhas: rate limiting de 10 req/min por IP; cadeia de fallback de provedores (Gemini → Groq) acionada apenas em erros de quota/sobrecarga; o enriquecimento vetorial degrada silenciosamente para o contexto local determinístico se Supabase/Gemini estiverem indisponíveis — o chat sempre responde; canário anti-injeção de prompt substitui respostas comprometidas por um aviso de segurança.",
+      "en": "Cost: runs entirely on free tiers (Vercel, Supabase, Gemini/Groq). Latency: three cache layers cut calls and response time — a server-side response cache (10-min TTL), a per-session client response cache, and an embedding cache (in-memory + Supabase table). Failures: 10 req/min per-IP rate limiting; the provider fallback chain (Gemini → Groq) engages only on quota/overload errors; vector enrichment degrades silently to the deterministic local context if Supabase/Gemini are unavailable — the chat always answers; a prompt-injection canary replaces compromised responses with a security notice."
+    },
     "recommendation_tags": ["react", "typescript", "frontend", "portfolio", "ai", "rag", "supabase", "vercel", "framer-motion"],
     "evidence_sources": [
       { "kind": "local_repo", "locator": "AGENTS.md", "note": "Repository architecture snapshot and current stack." },
@@ -386,71 +390,81 @@
     "display_name": "ReAct Agent",
     "status": "active",
     "aliases": ["react agent", "reactagent", "re-act agent", "react-agent", "agente react", "tool agent", "langgraph agent", "p01"],
-    "summary_pt": "Agente ReAct observável: backend LangGraph que transmite todo o traço de raciocínio e ação (passos do modelo, chamadas de ferramentas, observações, uso e latência) via SSE para uma interface React de inspeção, com harness de avaliação rodando sobre o grafo real.",
-    "summary_en": "An observable ReAct agent: a LangGraph backend that streams its full reasoning-and-action trace (model steps, tool calls, observations, usage, latency) over SSE to a React inspection UI, with an evaluation harness that runs against the real graph.",
+    "summary_pt": "Agente ReAct full-stack construído com US$ 0 de gasto em modelos/infra: LangGraph com traço de raciocínio/ação transmitido via SSE, memória entre conversas (checkpointer + long-term store em Postgres), RAG sobre documentos enviados pelo usuário com respostas citadas, traces persistidos e reexecutáveis com dashboard de histórico, e descoberta dinâmica de ferramentas via MCP — com baseline de avaliação de 100% em 22 casos rotulados e 154 testes de backend.",
+    "summary_en": "A full-stack ReAct agent built on $0 of model/infra spend: LangGraph with the reasoning/action trace streamed over SSE, cross-conversation memory (Postgres checkpointer + long-term store), RAG over user-uploaded documents with cited answers, persisted replayable traces with a history dashboard, and dynamic tool discovery over MCP — with a 100% evaluation baseline on 22 labeled cases and 154 backend tests.",
     "problem": {
-      "pt": "Agentes que usam ferramentas costumam expor apenas a resposta final, escondendo o ciclo de raciocínio/ação e tornando o comportamento difícil de inspecionar, testar e operar.",
-      "en": "Tool-using agents usually expose only the final answer, hiding the reasoning/action cycle and making behavior hard to inspect, test, and operate."
+      "pt": "Agentes que usam ferramentas costumam expor apenas a resposta final, esquecem tudo entre conversas, alucinam sobre documentos e escondem o ciclo de raciocínio/ação, tornando o comportamento difícil de inspecionar, testar e operar.",
+      "en": "Tool-using agents usually expose only the final answer, forget everything between conversations, hallucinate about documents, and hide the reasoning/action cycle, making behavior hard to inspect, test, and operate."
     },
     "why_built": {
-      "pt": "Foi construído para tornar o comportamento de agentes observável e testável, modelando o laço ReAct como um StateGraph do LangGraph e tratando o traço de raciocínio como superfície de produto de primeira classe.",
-      "en": "It was built to make agent behavior observable and testable, modeling the ReAct loop as a LangGraph StateGraph and treating the reasoning trace as a first-class product surface."
+      "pt": "Começou como um agente transparente de ferramentas e evoluiu por um milestone de cinco fases (Fundação → Memória → RAG → Observabilidade → MCP) para demonstrar engenharia moderna de agentes dentro de cotas free-tier: operar um agente resiliente com limites rígidos de quota é tratado como parte da história de engenharia.",
+      "en": "It started as a transparent tool-using agent and evolved through a five-phase milestone (Foundation → Memory → RAG → Observability → MCP) to demonstrate modern agent engineering inside free-tier quotas: operating a resilient agent within hard quota limits is treated as part of the engineering story."
     },
     "solution": {
-      "pt": "Backend Python com StateGraph do LangGraph e wrappers de LLM com rastreio de uso, ferramentas explícitas (busca web, execução Python restrita, cálculo) e uma camada FastAPI que transmite eventos de traço via SSE para um frontend React/Vite que separa conversa e raciocínio.",
-      "en": "A Python backend with a LangGraph StateGraph and usage-tracking LLM wrappers, explicit tools (web search, restricted Python execution, math), and a FastAPI layer that streams trace events over SSE to a React/Vite frontend that separates conversation from reasoning."
+      "pt": "Backend Python com StateGraph do LangGraph e fallback de provedores gratuitos (Gemini → Groq → GitHub Models), ferramentas explícitas (busca web, execução Python isolada, cálculo, memory_read/memory_write, document_search, fetch_url via MCP), persistência única em Supabase Postgres + pgvector (checkpointer, memória de longo prazo, documentos e traces) e uma camada FastAPI que transmite eventos via SSE para um frontend React 19/Vite com threads por conversa, histórico com replay e upload de documentos na barra de prompt.",
+      "en": "A Python backend with a LangGraph StateGraph and a free-provider fallback chain (Gemini → Groq → GitHub Models), explicit tools (web search, sandboxed Python execution, math, memory_read/memory_write, document_search, MCP fetch_url), a single Supabase Postgres + pgvector persistence backbone (checkpointer, long-term memory, documents, and traces), and a FastAPI layer streaming events over SSE to a React 19/Vite frontend with per-conversation threads, replayable history, and in-prompt document upload."
     },
     "what_it_solves": {
-      "pt": "Expõe o ciclo de raciocínio/ação de um agente em tempo real, com uso, custo, latência e erros visíveis, e valida o agente com casos rotulados executados contra o grafo real em vez de mocks.",
-      "en": "It surfaces an agent's reasoning/action cycle in real time, with usage, cost, latency, and errors made visible, and validates the agent with labeled cases run against the real graph rather than mocks."
+      "pt": "Entrega um agente que lembra fatos entre conversas (memory_read/memory_write aparecem como passos visíveis do traço), responde a partir de documentos enviados com citações de fonte e guarda anti-alucinação, persiste cada execução para replay com latência por passo e captura de fallback de provedor, e descobre ferramentas externas via MCP — tudo validado por casos rotulados executados contra o grafo real.",
+      "en": "It delivers an agent that remembers facts across conversations (memory_read/memory_write appear as visible trace steps), answers from uploaded documents with source citations and a no-hallucination guard, persists every run for replay with per-step latency and provider-fallback capture, and discovers external tools over MCP — all validated by labeled cases run against the real graph."
     },
     "target_users": {
       "roles": ["AI engineers", "Developers evaluating agents", "Technical reviewers"],
       "pt": "Engenheiros e desenvolvedores que precisam inspecionar e avaliar o comportamento de agentes que usam ferramentas.",
       "en": "Engineers and developers who need to inspect and evaluate the behavior of tool-using agents."
     },
-    "key_features": ["ReAct loop as a LangGraph StateGraph", "Streamed reasoning/action trace over SSE", "Per-run usage, cost, and latency tracking", "Tooling: web search, restricted Python, math", "Separate chat and reasoning panels", "Trace dock for execution detail", "Evaluation harness over the real graph", "Published evaluation baseline", "Provider-compatible LLM wrappers"],
+    "key_features": ["ReAct loop as a LangGraph StateGraph", "Streamed reasoning/action trace over SSE", "Cross-conversation memory: LangGraph PostgresSaver checkpointer + PostgresStore long-term store, with memory_read/memory_write as visible trace steps", "Document RAG: upload PDF/text, Gemini free embeddings (768-dim), pgvector retrieval, cited answers with a no-hallucination guard", "Persisted replayable run traces with per-step timing, token/cost usage, and provider-fallback capture", "Conversation-grouped history dashboard with restore and replay", "Dynamic MCP tool discovery from a companion FastMCP server over Streamable HTTP", "Free-provider fallback chain: Gemini → Groq → GitHub Models", "Per-conversation threads with New chat and in-prompt document upload", "Tooling: web search, sandboxed Python execution, math", "Evaluation harness over the real graph: 100% task success and tool selection on 22 labeled cases", "154 backend unit tests", "Free-tier resilience: keep-alive cron, embedding batching with 429 backoff, graceful degradation"],
     "architecture": {
-      "style": "Agent backend plus streaming inspection frontend",
-      "pt": "Grafo de estado LangGraph compilado por build_graph(), camada de LLMs que normaliza incompatibilidades de provedores, ferramentas isoladas e API FastAPI que emite eventos de stream para hooks e painéis React dedicados.",
-      "en": "A LangGraph state graph compiled by build_graph(), an LLM layer that normalizes provider incompatibilities, isolated tools, and a FastAPI API that emits stream events to dedicated React hooks and panels.",
-      "patterns": ["ReAct loop", "StateGraph orchestration", "SSE trace streaming", "Tool calling", "Usage tracking", "Provider abstraction"]
+      "style": "Agent backend plus streaming inspection frontend on a single Postgres backbone",
+      "pt": "Grafo de estado LangGraph de 2 nós compilado por build_graph(), camada de LLMs com fallback de provedores gratuitos e rastreio de uso, ferramentas nativas + memória + RAG + MCP executadas no tool_node, persistência unificada em Supabase Postgres/pgvector (checkpointer, long-term store, documentos, traces) e API FastAPI que emite eventos SSE para hooks e painéis React dedicados, com separação user_id/thread_id (identidade estável por navegador vs. thread por conversa).",
+      "en": "A 2-node LangGraph state graph compiled by build_graph(), an LLM layer with a free-provider fallback chain and usage tracking, native + memory + RAG + MCP tools executed in the tool_node, unified persistence on Supabase Postgres/pgvector (checkpointer, long-term store, documents, traces), and a FastAPI API emitting SSE events to dedicated React hooks and panels, with a user_id/thread_id split (stable browser identity vs. per-conversation thread).",
+      "patterns": ["ReAct loop", "StateGraph orchestration", "SSE trace streaming", "Tool calling", "Checkpointer + long-term memory store", "Retrieval-Augmented Generation", "MCP tool discovery", "Usage tracking", "Provider fallback", "Graceful degradation"]
     },
     "data_model": {
-      "entities": ["Graph state", "Message", "Tool call", "Observation", "Usage record", "Trace event"],
-      "pt": "Estado do grafo orientado a mensagens, chamadas de ferramentas, observações e métricas de uso por execução.",
-      "en": "A graph state oriented around messages, tool calls, observations, and per-run usage metrics."
+      "entities": ["Graph state", "Message", "Tool call", "Observation", "Memory fact", "Document chunk", "Run trace", "Usage record"],
+      "pt": "Estado do grafo orientado a mensagens e ferramentas, persistido em Supabase: checkpoints por thread, fatos de memória de longo prazo por usuário, chunks de documentos com embeddings pgvector e traces de execução reexecutáveis.",
+      "en": "A message- and tool-oriented graph state persisted in Supabase: per-thread checkpoints, per-user long-term memory facts, document chunks with pgvector embeddings, and replayable run traces."
     },
     "auth": {
       "mode": "none_explicit",
-      "pt": "Não há autenticação de usuários finais; a execução de Python e math é a superfície mais sensível e exige isolamento explícito.",
-      "en": "There is no end-user authentication; Python and math execution is the most security-sensitive surface and requires explicit isolation."
+      "pt": "Não há autenticação de usuários finais; a identidade é anônima por navegador (user_id estável). A execução de Python é isolada por subprocess com validação AST e whitelist de imports, e as ferramentas de memória e documentos têm barreiras contra prompt injection.",
+      "en": "There is no end-user authentication; identity is anonymous per browser (stable user_id). Python execution is subprocess-isolated with AST validation and an import whitelist, and the memory and document tools carry prompt-injection barriers."
     },
     "integrations": {
-      "components": ["Tavily web search", "Restricted Python execution", "Math evaluation", "Provider-compatible LLMs", "SSE"],
-      "pt": "Integra busca web Tavily, execução Python restrita, avaliação matemática e provedores de LLM, transmitindo traços via SSE.",
-      "en": "It integrates Tavily web search, restricted Python execution, math evaluation, and LLM providers, streaming traces over SSE."
+      "components": ["Supabase Postgres + pgvector", "Gemini embeddings", "Tavily web search", "Sandboxed Python execution", "MCP (FastMCP over Streamable HTTP)", "Gemini/Groq/GitHub Models fallback chain", "SSE", "Vercel cron keep-alive"],
+      "pt": "Integra Supabase (memória, RAG e traces), embeddings gratuitos do Gemini, busca web Tavily, execução Python isolada, servidor MCP companion e cadeia de fallback de provedores gratuitos, transmitindo traços via SSE.",
+      "en": "It integrates Supabase (memory, RAG, and traces), free Gemini embeddings, Tavily web search, sandboxed Python execution, a companion MCP server, and a free-provider fallback chain, streaming traces over SSE."
     },
-    "frontend_stack": ["React", "Vite", "TypeScript", "Framer Motion", "Radix UI", "React Markdown"],
-    "backend_stack": ["Python", "LangGraph", "FastAPI", "Uvicorn", "Server-Sent Events"],
-    "database_stack": ["In-memory graph state"],
-    "tooling_stack": ["Vercel", "Tavily", "Evaluation harness", "Git"],
-    "all_stacks": ["Python", "LangGraph", "FastAPI", "Server-Sent Events", "React", "Vite", "TypeScript", "Framer Motion", "Radix UI", "Tavily", "Uvicorn", "LLM Agents"],
+    "frontend_stack": ["React 19", "Vite", "TypeScript", "TailwindCSS", "Framer Motion", "Radix UI", "React Markdown"],
+    "backend_stack": ["Python 3.11", "LangGraph", "FastAPI", "Uvicorn", "Server-Sent Events", "LangGraph PostgresSaver", "LangGraph PostgresStore", "FastMCP"],
+    "database_stack": ["Supabase", "PostgreSQL", "pgvector"],
+    "tooling_stack": ["Vercel", "Tavily", "Evaluation harness", "slowapi rate limiting", "Git"],
+    "all_stacks": ["Python", "LangGraph", "FastAPI", "Server-Sent Events", "Supabase", "PostgreSQL", "pgvector", "Model Context Protocol", "Gemini API", "Groq", "GitHub Models", "React 19", "Vite", "TypeScript", "TailwindCSS", "Framer Motion", "Radix UI", "Tavily", "Uvicorn", "LLM Agents", "Retrieval-Augmented Generation", "Agent Memory"],
     "metrics_engineering": {
       "graph": {
         "nodes": 550,
         "internal_edges": 913,
         "communities": 39
       },
+      "testing": {
+        "backend_unit_tests": 154,
+        "eval_cases": 22,
+        "eval_task_success_pct": 100,
+        "eval_tool_selection_pct": 100
+      },
       "modules": ["backend/agent", "backend/api", "backend/evals", "frontend/src/hooks", "frontend/src/components"]
     },
     "metrics_functional": {
-      "domain_areas": ["Agent orchestration", "Tool execution", "Trace observability", "Evaluation"],
-      "primary_flows": ["Send a prompt", "Run the ReAct loop", "Call tools", "Stream reasoning/action trace", "Inspect usage and latency", "Run labeled evaluation cases"]
+      "domain_areas": ["Agent orchestration", "Tool execution", "Cross-conversation memory", "Document RAG", "Trace observability", "MCP tool discovery", "Evaluation"],
+      "primary_flows": ["Send a prompt", "Run the ReAct loop", "Call tools", "Read and write long-term memory", "Upload a document and ask cited questions about it", "Stream reasoning/action trace", "Replay a past run from history", "Discover MCP tools", "Run labeled evaluation cases"]
     },
-    "strengths": ["Reasoning/tool trace treated as a first-class product surface", "Observable usage, cost, and latency per run", "Evaluation harness over the real graph", "Live public deployment", "Clean separation between conversation and execution detail"],
-    "tradeoffs": ["Python/math execution is a real security surface needing isolation", "Model-provider APIs and trace formats are unstable dependencies", "No end-user authentication layer"],
-    "recommendation_tags": ["python", "agents", "langgraph", "llm", "fastapi", "sse", "ai", "observability", "evaluation"],
+    "strengths": ["Reasoning/tool trace treated as a first-class product surface", "Cross-conversation memory with memory operations visible in the trace", "Document RAG with cited answers and a no-hallucination guard", "Persisted replayable traces with provider-fallback capture", "Dynamic MCP tool discovery rendered identically to native tools", "100% evaluation baseline on 22 labeled cases plus 154 backend tests", "Entire system operated on $0 free-tier spend", "Live public deployment"],
+    "tradeoffs": ["Python execution remains the most sensitive security surface despite subprocess isolation", "Model-provider APIs and embedding quotas are unstable external dependencies", "No end-user authentication layer (anonymous browser-scoped identity)"],
+    "reliability": {
+      "pt": "Custo: US$ 0 total — operação inteira em free tiers (Gemini, Groq, GitHub Models, Supabase, Vercel), com a restrição tratada como parte da engenharia. Latência: cada passo do trace registra elapsed_ms, tokens e custo estimado via UsageTracker. Falhas: cadeia de fallback de provedores (Gemini → Groq → GitHub Models) com eventos de fallback capturados no trace; rate limiting de 10 req/min/IP (slowapi); loop limitado a 10 iterações; cron keep-alive na Vercel evita a pausa de 7 dias do Supabase free; batching de embeddings com backoff em 429; degradação graciosa — sem pool/store de banco, o agente continua respondendo sem memória/RAG em vez de quebrar.",
+      "en": "Cost: $0 total — the whole system runs on free tiers (Gemini, Groq, GitHub Models, Supabase, Vercel), with that constraint treated as part of the engineering. Latency: every trace step records elapsed_ms, tokens, and estimated cost via a UsageTracker. Failures: a free-provider fallback chain (Gemini → Groq → GitHub Models) with fallback events captured in the trace; 10 req/min/IP rate limiting (slowapi); the loop is hard-capped at 10 iterations; a Vercel keep-alive cron prevents the Supabase free-tier 7-day pause; embedding batching with 429 backoff; graceful degradation — without the DB pool/store the agent still answers, just without memory/RAG, instead of breaking."
+    },
+    "recommendation_tags": ["python", "agents", "langgraph", "llm", "fastapi", "sse", "ai", "observability", "evaluation", "rag", "memory", "mcp", "supabase", "pgvector"],
     "evidence_sources": [
       { "kind": "github_description", "locator": "Shizu0n/ReAct-Agent", "note": "Repository describes a ReAct agent with python executor, web search, and calculator tools." },
       { "kind": "deployment", "locator": "https://react-agent-ml.vercel.app", "note": "Live public deployment of the agent inspector." },
@@ -527,6 +541,10 @@
     },
     "strengths": ["Treats RAG as a full engineering system, not a single vector-search demo", "Works offline with honest lexical metrics and extractive fallback", "Hybrid retrieval ablatable into individual strategies", "Extensive test suite with fake Streamlit/runtime/provider components", "Live public Streamlit deployment"],
     "tradeoffs": ["Streamlit UI is utilitarian rather than highly polished", "Some evaluation/UI modules show low community cohesion and could be decomposed", "Persistent Chroma data needs a deliberate hosting target"],
+    "reliability": {
+      "pt": "Custo: projetado para operar com US$ 0 — o sistema inteiro continua útil sem provedores pagos, com métricas léxicas offline e fallback extrativo quando nenhum LLM está disponível. Falhas: RAGAS na nuvem é opt-in, com execução limitada e estados de degradação explícitos (a avaliação offline nunca reporta silenciosamente métricas de nuvem); corrupção ou coleção ausente no ChromaDB é tratada com caminhos de reset e retry; o reranker é exposto honestamente em vez de fingir que um cross-encoder está sempre ativo.",
+      "en": "Cost: designed to run on $0 — the whole system stays useful without paid providers, with offline lexical metrics and an extractive fallback when no LLM is available. Failures: cloud RAGAS is opt-in, with bounded execution and explicit degradation states (offline evaluation never silently reports cloud metrics); ChromaDB corruption or missing collections are handled through reset-and-retry paths; the reranker is surfaced honestly instead of implying a cross-encoder is always active."
+    },
     "recommendation_tags": ["python", "rag", "retrieval", "ragas", "evaluation", "llm", "streamlit", "ai", "chromadb"],
     "evidence_sources": [
       { "kind": "github_description", "locator": "Shizu0n/Advanced-RAG", "note": "Repository describes Advanced RAG with RAGAS evaluation." },
@@ -613,6 +631,10 @@
     },
     "strengths": ["Large measurable gain: 2% to 73.5% exact match", "Efficient 4-bit training on a single free-tier T4", "Complete pipeline from dataset to published artifacts", "Adapter and merged model both published on the Hub", "Public Hugging Face Spaces demo and detailed documentation"],
     "tradeoffs": ["Trained on SELECT queries only (no INSERT/UPDATE/DELETE/DDL)", "Best on low-to-medium complexity queries; weaker on multi-JOINs and nested subqueries", "Not tested against dialect-specific SQL (PostgreSQL, MySQL)"],
+    "reliability": {
+      "pt": "Custo: US$ 0 de treino — Colab free tier com uma única GPU T4, dentro de limites diários apertados de uso; a quantização 4-bit NF4 foi o que tornou viável treinar um modelo de 3,8B nesse hardware. Latência de treino: ~21 minutos para 1.000 exemplos de treino + 200 de validação. Falhas/limites conhecidos e documentados: só SELECT (sem INSERT/UPDATE/DELETE/DDL), melhor em queries de complexidade baixa a média, não testado em dialetos específicos — limitações publicadas junto com o modelo em vez de escondidas.",
+      "en": "Cost: $0 training — Colab free tier on a single T4 GPU, within tight daily usage caps; 4-bit NF4 quantization is what made training a 3.8B model feasible on that hardware. Training latency: ~21 minutes for 1,000 train + 200 validation examples. Known, documented failure limits: SELECT-only (no INSERT/UPDATE/DELETE/DDL), strongest on low-to-medium query complexity, untested on dialect-specific SQL — limitations published alongside the model rather than hidden."
+    },
     "recommendation_tags": ["python", "machine-learning", "fine-tuning", "qlora", "llm", "text-to-sql", "ai", "huggingface", "pytorch"],
     "evidence_sources": [
       { "kind": "github_description", "locator": "Shizu0n/phi3-mini-sql-generator", "note": "Repository describes a QLoRA fine-tuned model trained on a T4 GPU for SQL generation." },

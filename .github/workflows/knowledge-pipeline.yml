@@ -1,0 +1,62 @@
+name: Knowledge pipeline
+
+# Rebuilds and validates the chatbot knowledge artifact and re-ingests the chunks
+# into Supabase pgvector whenever the knowledge sources change, so the production
+# RAG never drifts from the committed data again.
+#
+# Required repository secrets: GEMINI_API_KEY, SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY.
+# GITHUB_TOKEN is provided automatically (used by knowledge:build to avoid the
+# 60 req/hr unauthenticated GitHub API limit).
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'data/chatbot/**'
+      - 'data/chatbot-prompt.txt'
+      - 'scripts/build-chatbot-knowledge.js'
+      - 'scripts/validate-chatbot-knowledge.js'
+      - 'scripts/ingest.js'
+  workflow_dispatch:
+
+# ingest.js wipes the chunks table before inserting; two concurrent runs would
+# race and leave the table half-populated. Queue runs instead.
+concurrency:
+  group: knowledge-ingest
+  cancel-in-progress: false
+
+jobs:
+  build-validate-ingest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build and validate knowledge artifact
+        run: npm run knowledge:build
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Quality gates
+        run: |
+          npm run security:check
+          npm run type-check
+          npm run test:chat-cards
+
+      - name: Write .env for ingest
+        run: |
+          {
+            echo "GEMINI_API_KEY=${{ secrets.GEMINI_API_KEY }}"
+            echo "SUPABASE_URL=${{ secrets.SUPABASE_URL }}"
+            echo "SUPABASE_SERVICE_ROLE_KEY=${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}"
+          } > .env
+
+      - name: Ingest chunks into Supabase pgvector
+        run: npm run knowledge:ingest

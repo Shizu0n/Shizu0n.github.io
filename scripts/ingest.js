@@ -27,6 +27,20 @@ if (!Array.isArray(chunks) || chunks.length === 0) {
 const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY);
 const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
 
+async function embedWithRetry(model, content, attempts = 3) {
+  for (let attempt = 1; ; attempt += 1) {
+    try {
+      return await model.embedContent(content);
+    } catch (error) {
+      if (error?.status !== 429 || attempt >= attempts) {
+        throw error;
+      }
+      console.log('Embedding rate limit hit, waiting 65s before retrying...');
+      await new Promise((resolve) => setTimeout(resolve, 65000));
+    }
+  }
+}
+
 async function main() {
   console.log(`Starting RAG ingestion for ${chunks.length} chunks...`);
   const model = genAI.getGenerativeModel({ model: 'gemini-embedding-001' });
@@ -39,7 +53,7 @@ async function main() {
 
   for (const chunk of chunks) {
     console.log(`Embedding ${chunk.id} (${chunk.type}/${chunk.facet})...`);
-    const result = await model.embedContent(chunk.content);
+    const result = await embedWithRetry(model, chunk.content);
     const embedding = result.embedding.values;
 
     const metadata = {

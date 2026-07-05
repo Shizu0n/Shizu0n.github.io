@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect, useRef } from 'react'
+import { lazy, Suspense, useEffect, useRef, useState } from 'react'
 import Lenis from 'lenis'
 import { GitHubProvider } from './contexts/GitHubContext'
 import { TranslationProvider } from './contexts/TranslationContext'
@@ -15,8 +15,49 @@ import FloatingChat from './components/FloatingChat'
 // Lazy-loaded so three.js ships in its own chunk and never blocks first paint.
 const CosmicDustBackground = lazy(() => import('./components/CosmicDustBackground'))
 
+// React.lazy still starts fetching on first render; the scene chunk must wait until
+// the page has fully loaded and the main thread is idle before it even downloads.
+const useDeferredBackground = () => {
+  const [ready, setReady] = useState(false)
+
+  useEffect(() => {
+    let idleId: number | undefined
+    let cancelled = false
+
+    const schedule = () => {
+      if (cancelled) return
+      if (typeof window.requestIdleCallback === 'function') {
+        idleId = window.requestIdleCallback(() => setReady(true), { timeout: 3000 })
+      } else {
+        idleId = window.setTimeout(() => setReady(true), 300)
+      }
+    }
+
+    if (document.readyState === 'complete') {
+      schedule()
+    } else {
+      window.addEventListener('load', schedule, { once: true })
+    }
+
+    return () => {
+      cancelled = true
+      window.removeEventListener('load', schedule)
+      if (idleId !== undefined) {
+        if (typeof window.cancelIdleCallback === 'function') {
+          window.cancelIdleCallback(idleId)
+        } else {
+          clearTimeout(idleId)
+        }
+      }
+    }
+  }, [])
+
+  return ready
+}
+
 export default function App() {
   const lenisRef = useRef<Lenis | null>(null)
+  const backgroundReady = useDeferredBackground()
 
   useEffect(() => {
     const lenis = new Lenis({ lerp: 0.08, smoothWheel: true })
@@ -62,9 +103,11 @@ export default function App() {
   return (
     <TranslationProvider>
       <GitHubProvider>
-        <Suspense fallback={null}>
-          <CosmicDustBackground />
-        </Suspense>
+        {backgroundReady && (
+          <Suspense fallback={null}>
+            <CosmicDustBackground />
+          </Suspense>
+        )}
         <a href="#main-content" className="skip-link">
           Skip to content
         </a>

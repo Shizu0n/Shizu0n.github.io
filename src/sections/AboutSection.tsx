@@ -11,7 +11,7 @@ const range = (
 
 export default function AboutSection() {
   const { t } = useTranslation()
-  const { stats, user } = useGitHub()
+  const { stats } = useGitHub()
   const sectionRef = useRef<HTMLDivElement>(null)
   const prefersReducedMotion = useReducedMotion()
   const { scrollYProgress } = useScroll({
@@ -31,9 +31,13 @@ export default function AboutSection() {
   const noteY = range(progress, [0, 1], [prefersReducedMotion ? 0 : 8, prefersReducedMotion ? 0 : -8])
   const watermarkOpacity = range(progress, [0, 0.35, 0.75, 1], [0.08, 0.16, 0.12, 0.05])
 
-  const startedYear = user?.created_at
-    ? new Date(user.created_at).getFullYear().toString()
-    : '2024'
+  // Degree (and hands-on coding) started Jan 2024 — the GitHub account year reads later
+  // and used to surface a wrong "started coding" year here.
+  const startedYear = '2024'
+
+  // Public, verifiable deployments: ReAct Agent (Vercel), Advanced RAG (Streamlit),
+  // Phi-3 demo (HF Spaces), and this portfolio.
+  const liveDemos = 4
 
   const topLanguages = useMemo(() => {
     if (!stats?.topLanguages.length) {
@@ -76,8 +80,8 @@ export default function AboutSection() {
                   <span className="about-stat-label">{t('about.stats.repos')}</span>
                 </div>
                 <div className="about-stat-block">
-                  <span className="about-stat-value">{stats?.totalStars ?? 0}</span>
-                  <span className="about-stat-label">{t('about.stats.stars')}</span>
+                  <span className="about-stat-value">{liveDemos}</span>
+                  <span className="about-stat-label">{t('about.stats.demos')}</span>
                 </div>
                 <div className="about-stat-block">
                   <span className="about-stat-value">{startedYear}</span>

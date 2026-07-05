@@ -23,6 +23,8 @@ export interface ProjectPresentation {
   accent: string
   category: { en: string; pt: string }
   metric: { en: string; pt: string }
+  /** Real screenshot of the live demo, served from public/projects/. Decorative (alt=""). */
+  screenshot?: string
 }
 
 export const PROJECT_PRESENTATION: Record<string, ProjectPresentation> = {
@@ -34,9 +36,10 @@ export const PROJECT_PRESENTATION: Record<string, ProjectPresentation> = {
     accent: 'Reason',
     category: { en: 'Observable agent system', pt: 'Sistema de agente observável' },
     metric: {
-      en: 'Live · streamed reasoning traces + evaluation harness',
-      pt: 'No ar · traços de raciocínio em streaming + harness de avaliação',
+      en: 'Live · replayable traces · 100% eval baseline (22 cases) · $0 free-tier ops',
+      pt: 'No ar · traces com replay · baseline de eval 100% (22 casos) · operação free-tier US$ 0',
     },
+    screenshot: '/projects/react-agent.png',
   },
   'advanced-rag': {
     group: 'ai',
@@ -45,9 +48,10 @@ export const PROJECT_PRESENTATION: Record<string, ProjectPresentation> = {
     accent: 'Retrieve',
     category: { en: 'RAG engineering & eval', pt: 'Engenharia e avaliação de RAG' },
     metric: {
-      en: 'Hybrid retrieval (BM25 + dense + RRF) · RAGAS evaluation',
-      pt: 'Retrieval híbrido (BM25 + denso + RRF) · avaliação RAGAS',
+      en: 'Hybrid retrieval (BM25 + dense + RRF) · RAGAS eval · works offline at $0',
+      pt: 'Retrieval híbrido (BM25 + denso + RRF) · avaliação RAGAS · opera offline a US$ 0',
     },
+    screenshot: '/projects/advanced-rag.png',
   },
   // Row 2: 5 + 7
   'phi3-mini-sql': {
@@ -57,9 +61,10 @@ export const PROJECT_PRESENTATION: Record<string, ProjectPresentation> = {
     accent: 'Fine-tune',
     category: { en: 'LLM fine-tuning', pt: 'Fine-tuning de LLM' },
     metric: {
-      en: '73.5% exact-match SQL (from 2% base) · QLoRA on a single T4',
-      pt: '73,5% de exact-match em SQL (de 2% base) · QLoRA numa única T4',
+      en: '73.5% exact-match SQL (from 2% base) · 21-min QLoRA on a free T4',
+      pt: '73,5% de exact-match em SQL (de 2% base) · QLoRA de 21 min numa T4 gratuita',
     },
+    screenshot: '/projects/phi3-demo.png',
   },
   'shizu0n-cv': {
     group: 'application',
@@ -68,9 +73,10 @@ export const PROJECT_PRESENTATION: Record<string, ProjectPresentation> = {
     accent: 'Presence',
     category: { en: 'AI portfolio + RAG chat', pt: 'Portfólio com IA + RAG' },
     metric: {
-      en: 'RAG over Supabase pgvector · multi-provider SSE chat',
-      pt: 'RAG sobre Supabase pgvector · chat SSE multi-provedor',
+      en: 'RAG over Supabase pgvector · SSE chat with provider fallback + 3 cache layers',
+      pt: 'RAG sobre Supabase pgvector · chat SSE com fallback de provedores + 3 camadas de cache',
     },
+    screenshot: '/projects/shizu0n-cv.png',
   },
   // Row 3: 7 + 5 — full-stack application systems
   'referral-system': {

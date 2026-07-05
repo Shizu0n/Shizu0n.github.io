@@ -23,12 +23,12 @@ const CHAT_PROJECT_ACTIONS: ChatProjectAction[] = [
     name: 'ReAct Agent',
     aliases: ['react agent', 'reactagent', 're-act agent', 'react-agent', 'agente react', 'langgraph agent', 'tool agent'],
     summary: {
-      en: 'Observable tool-using ReAct agent — a LangGraph backend that streams its full reasoning/action trace over SSE to a React inspector UI, with an evaluation harness over the real graph.',
-      pt: 'Agente ReAct observável — backend LangGraph que transmite todo o traço de raciocínio/ação via SSE para uma UI React de inspeção, com harness de avaliação sobre o grafo real.',
+      en: 'Observable ReAct agent on $0 free-tier spend — LangGraph backend streaming its full reasoning/action trace over SSE, with cross-conversation memory, cited document RAG, persisted replayable traces, MCP tool discovery, and a 100% eval baseline on 22 labeled cases.',
+      pt: 'Agente ReAct observável com US$ 0 de gasto — backend LangGraph transmitindo o traço completo de raciocínio/ação via SSE, com memória entre conversas, RAG de documentos com citações, traces persistidos com replay, descoberta de ferramentas MCP e baseline de 100% em 22 casos avaliados.',
     },
     github: 'https://github.com/Shizu0n/ReAct-Agent',
     live: 'https://react-agent-ml.vercel.app',
-    stacks: ['Python', 'LangGraph', 'FastAPI', 'Server-Sent Events', 'React', 'Vite', 'TypeScript', 'Tavily', 'LLM Agents'],
+    stacks: ['Python', 'LangGraph', 'FastAPI', 'Server-Sent Events', 'Supabase', 'pgvector', 'Model Context Protocol', 'React', 'Vite', 'TypeScript', 'Tavily', 'LLM Agents'],
   },
   {
     id: 'advanced-rag',

@@ -96,6 +96,16 @@ export interface QuotaInfo {
   resetTimestamp: number | null;
 }
 
+export type ChatErrorCode = 'network' | 'rate_limited' | 'overloaded' | 'generic';
+
+const classifyErrorCode = (err: any): ChatErrorCode => {
+  if (err?.code) return err.code as ChatErrorCode;
+  const message = typeof err?.message === 'string' ? err.message : '';
+  if (message === 'Failed to fetch') return 'network';
+  if (/overload|temporar|internal server error|try again/i.test(message)) return 'overloaded';
+  return 'generic';
+};
+
 export function useChat() {
   const [messages, setMessages] = useState<ChatMessage[]>(() => {
     try {
@@ -108,6 +118,8 @@ export function useChat() {
   });
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [errorCode, setErrorCode] = useState<ChatErrorCode | null>(null);
+  const [lastFailedText, setLastFailedText] = useState<string | null>(null);
   const [quotaInfo, setQuotaInfo] = useState<QuotaInfo>({
     isQuotaExceeded: false,
     retryAfterSeconds: 0,
@@ -156,6 +168,8 @@ export function useChat() {
     setMessages(prev => [...prev, userMessage]);
     setIsLoading(true);
     setError(null);
+    setErrorCode(null);
+    setLastFailedText(null);
 
     const assistantMessageId = crypto.randomUUID();
     let currentAssistantText = '';
@@ -206,9 +220,17 @@ export function useChat() {
               const retryAfter = response.headers.get('retry-after');
               const retryHint = retryAfter ? ` Retry in ${retryAfter}s.` : '';
               const customErr = new Error(`${apiErrorData.error}${retryHint}`.trim());
-              if (apiErrorData.quotaInfo) {
-                (customErr as any).quotaInfo = apiErrorData.quotaInfo;
-              }
+              (customErr as any).code = 'rate_limited';
+              // Any 429 drives the countdown UI, even when the payload lacks quota metadata.
+              const retryAfterSeconds = apiErrorData.quotaInfo?.retryAfterSeconds
+                || Number(retryAfter)
+                || 30;
+              (customErr as any).quotaInfo = {
+                isQuotaExceeded: true,
+                retryAfterSeconds,
+                resetTimestamp: apiErrorData.quotaInfo?.resetTimestamp
+                  || Date.now() + retryAfterSeconds * 1000
+              };
               throw customErr;
             }
 
@@ -317,6 +339,9 @@ export function useChat() {
         setQuotaInfo(err.quotaInfo);
       }
 
+      setErrorCode(classifyErrorCode(err));
+      setLastFailedText(text);
+
       if (err?.message === 'Failed to fetch') {
         setError('Network error: unable to reach chat API. Check VITE_CHAT_API_URL and backend deployment.');
       } else if (err?.message === 'Internal Server Error') {
@@ -329,10 +354,21 @@ export function useChat() {
     }
   }, [messages]);
 
+  const retry = useCallback(() => {
+    if (!lastFailedText) return;
+    const text = lastFailedText;
+    // Drop the failed bubble so the retried question isn't shown twice.
+    setMessages(prev => prev.filter(message => !(message.failed && message.content === text)));
+    void sendMessage(text);
+  }, [lastFailedText, sendMessage]);
+
   return {
     messages,
     isLoading,
     error,
+    errorCode,
+    canRetry: lastFailedText !== null,
+    retry,
     quotaInfo,
     sendMessage,
     clearChat

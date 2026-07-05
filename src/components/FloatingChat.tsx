@@ -221,7 +221,7 @@ export default function FloatingChat() {
   const [countdown, setCountdown] = useState(0);
   const [isContextPopoverOpen, setIsContextPopoverOpen] = useState(false);
   
-  const { messages, isLoading, error, quotaInfo, sendMessage } = useChat();
+  const { messages, isLoading, error, errorCode, canRetry, retry, quotaInfo, sendMessage } = useChat();
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const contextFlyoutRef = useRef<HTMLDivElement>(null);
@@ -584,7 +584,23 @@ export default function FloatingChat() {
                       <p>{t('chat.quotaExceeded', { seconds: countdown })}</p>
                     </div>
                   ) : (
-                    <p>{error}</p>
+                    <>
+                      <p>
+                        {errorCode === 'network' && t('chat.error.network')}
+                        {errorCode === 'overloaded' && t('chat.error.overloaded')}
+                        {errorCode === 'rate_limited' && t('chat.error.rateLimited')}
+                        {(errorCode === 'generic' || !errorCode) && t('chat.error')}
+                      </p>
+                      {canRetry && !isLoading && (
+                        <button
+                          type="button"
+                          className="chat-error-retry"
+                          onClick={retry}
+                        >
+                          {t('chat.retry')} &rarr;
+                        </button>
+                      )}
+                    </>
                   )}
                 </div>
               )}

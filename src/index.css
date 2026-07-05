@@ -944,6 +944,26 @@ button {
   overflow: hidden;
 }
 
+/* Real screenshot of the live demo, kept dim under the tile copy; lifts on hover. */
+.project-showcase-shot {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top left;
+  opacity: 0.26;
+  filter: saturate(0.85) brightness(0.92);
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.85) 45%, rgba(0, 0, 0, 0.2) 100%);
+  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.85) 45%, rgba(0, 0, 0, 0.2) 100%);
+  transition: opacity 0.45s ease;
+}
+
+.project-showcase:hover .project-showcase-shot,
+.project-showcase:focus-visible .project-showcase-shot {
+  opacity: 0.5;
+}
+
 .project-showcase-word,
 .project-showcase-code,
 .project-showcase-frame,
@@ -2416,6 +2436,23 @@ button {
   background: rgba(255, 85, 85, 0.1);
   border: 1px solid rgba(255, 85, 85, 0.16);
   border-radius: 0.9rem;
+}
+
+.chat-error-retry {
+  margin-top: 0.5rem;
+  padding: 0.35rem 0.85rem;
+  font-size: 0.75rem;
+  font-family: inherit;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 0.6rem;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.chat-error-retry:hover {
+  background: rgba(255, 255, 255, 0.16);
 }
 
 .chat-typing-indicator {

@@ -299,8 +299,8 @@
     },
     {
       "project_id": "react-agent",
-      "summary_pt": "Melhor vitrine de engenharia de agentes: laço ReAct em LangGraph com traço observável, avaliação sobre o grafo real e deploy público.",
-      "summary_en": "The best showcase of agent engineering: a ReAct loop in LangGraph with an observable trace, evaluation over the real graph, and public deployment.",
+      "summary_pt": "Melhor vitrine de engenharia de agentes: laço ReAct em LangGraph com traço observável, memória entre conversas, RAG de documentos com citações, traces persistidos com replay e descoberta de ferramentas via MCP — tudo em free-tier, com avaliação sobre o grafo real e deploy público.",
+      "summary_en": "The best showcase of agent engineering: a ReAct loop in LangGraph with an observable trace, cross-conversation memory, document RAG with citations, persisted replayable traces, and MCP tool discovery — all on free tier, with evaluation over the real graph and public deployment.",
       "scores": {
         "completeness": {
           "score": 4,
@@ -328,14 +328,14 @@
           "reason_en": "No authentication; Python and math execution is the most sensitive surface and still requires isolation."
         },
         "data_modeling": {
-          "score": 3,
-          "reason_pt": "O estado é orientado a mensagens, chamadas de ferramentas e uso por execução, não a um domínio relacional.",
-          "reason_en": "State is oriented around messages, tool calls, and per-run usage rather than a relational domain."
+          "score": 4,
+          "reason_pt": "Persistência unificada em Supabase Postgres/pgvector: checkpoints por thread, memória de longo prazo por usuário, chunks de documentos com embeddings e traces reexecutáveis, com separação user_id/thread_id.",
+          "reason_en": "Unified Supabase Postgres/pgvector persistence: per-thread checkpoints, per-user long-term memory, embedded document chunks, and replayable traces, with a user_id/thread_id split."
         },
         "functional_scope": {
-          "score": 4,
-          "reason_pt": "Cobre o ciclo de agente com múltiplas ferramentas, observabilidade de traço e harness de avaliação.",
-          "reason_en": "It covers the agent cycle with multiple tools, trace observability, and an evaluation harness."
+          "score": 5,
+          "reason_pt": "Cobre o ciclo de agente com ferramentas, memória entre conversas, RAG de documentos com citações, histórico com replay, descoberta MCP e harness de avaliação.",
+          "reason_en": "It covers the agent cycle with tools, cross-conversation memory, cited document RAG, replayable history, MCP discovery, and an evaluation harness."
         },
         "documentation_quality": {
           "score": 4,
@@ -349,8 +349,8 @@
         },
         "ai_ml_depth": {
           "score": 5,
-          "reason_pt": "Engenharia de agentes forte: laço ReAct em LangGraph com ferramentas, traço observável de raciocínio/ação via SSE e harness de avaliação sobre o grafo real.",
-          "reason_en": "Strong agent engineering: a LangGraph ReAct loop with tools, an observable reasoning/action trace over SSE, and an evaluation harness running over the real graph."
+          "reason_pt": "Engenharia de agentes forte: laço ReAct em LangGraph com ferramentas, memória entre conversas (checkpointer + long-term store), RAG de documentos com guarda anti-alucinação, traço observável via SSE, descoberta de ferramentas MCP e baseline de 100% em 22 casos rotulados.",
+          "reason_en": "Strong agent engineering: a LangGraph ReAct loop with tools, cross-conversation memory (checkpointer + long-term store), document RAG with a no-hallucination guard, an observable SSE trace, MCP tool discovery, and a 100% baseline on 22 labeled cases."
         }
       }
     },

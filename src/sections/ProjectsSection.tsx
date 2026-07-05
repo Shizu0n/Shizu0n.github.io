@@ -41,6 +41,15 @@ function ProjectShowcaseTile({ project, presentation, index, labelPrefix, langua
       transition={{ duration: 0.58, delay: index * 0.06, ease: [0.22, 1, 0.36, 1] }}
     >
       <div className={`project-showcase-visual project-showcase-visual--${presentation.visual}`} aria-hidden="true">
+        {presentation.screenshot && (
+          <img
+            className="project-showcase-shot"
+            src={presentation.screenshot}
+            alt=""
+            loading="lazy"
+            decoding="async"
+          />
+        )}
         <span className="project-showcase-word">{presentation.accent}</span>
         <span className="project-showcase-gridline project-showcase-gridline--top" />
         <span className="project-showcase-gridline project-showcase-gridline--bottom" />

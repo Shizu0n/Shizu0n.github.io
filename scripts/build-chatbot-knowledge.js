@@ -554,6 +554,12 @@ function buildProjectChunks(project, scoreCard) {
         `Functional metrics: ${JSON.stringify(project.metrics_functional)}`,
         `Strengths: ${project.strengths.join(', ')}`,
         `Tradeoffs: ${project.tradeoffs.join(', ')}`,
+        ...(project.reliability
+          ? [
+              `Cost, latency and failure handling EN: ${project.reliability.en}`,
+              `Cost, latency and failure handling PT: ${project.reliability.pt}`
+            ]
+          : []),
         `Score summary: ${scoreSummary}`,
         `Recommendation summary EN: ${scoreCard.summary_en}`,
         `Recommendation summary PT: ${scoreCard.summary_pt}`
