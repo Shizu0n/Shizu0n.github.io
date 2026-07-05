@@ -1,4 +1,5 @@
-import { motion, type Variants } from 'framer-motion'
+import { AnimatePresence, motion, type Variants } from 'framer-motion'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { useGitHub } from '../contexts/GitHubContext'
 import { useTranslation } from '../contexts/TranslationContext'
 import { getShowcaseProjects, type ChatProjectAction } from '../components/chatProjectCatalog'
@@ -20,9 +21,10 @@ interface ProjectShowcaseTileProps {
   index: number
   labelPrefix: string
   language: 'en' | 'pt'
+  onPreview: (projectId: string | null) => void
 }
 
-function ProjectShowcaseTile({ project, presentation, index, labelPrefix, language }: ProjectShowcaseTileProps) {
+function ProjectShowcaseTile({ project, presentation, index, labelPrefix, language, onPreview }: ProjectShowcaseTileProps) {
   const tiltRef = usePointerTilt<HTMLAnchorElement>()
   const label = `${labelPrefix} ${String(index + 1).padStart(2, '0')}`
   // AI projects lead with their live demo (the deployed showcase); app projects link to the repo.
@@ -39,6 +41,8 @@ function ProjectShowcaseTile({ project, presentation, index, labelPrefix, langua
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-80px' }}
       transition={{ duration: 0.58, delay: index * 0.06, ease: [0.22, 1, 0.36, 1] }}
+      onMouseEnter={() => onPreview(project.id)}
+      onMouseLeave={() => onPreview(null)}
     >
       <div className={`project-showcase-visual project-showcase-visual--${presentation.visual}`} aria-hidden="true">
         {presentation.screenshot && (
@@ -97,6 +101,39 @@ export default function ProjectsSection() {
 
   const projects = getShowcaseProjects()
 
+  // Hover preview only makes sense on devices with a real pointer; on touch the
+  // dim background capture stays as the visual evidence.
+  const canHoverPreview = useMemo(
+    () => typeof window !== 'undefined' && window.matchMedia('(hover: hover) and (pointer: fine)').matches,
+    [],
+  )
+  const [previewId, setPreviewId] = useState<string | null>(null)
+
+  // Brief delay before opening so casual mouse passes over the grid don't flash
+  // the preview; closing is immediate.
+  const previewTimerRef = useRef<number | null>(null)
+  const handlePreview = (projectId: string | null) => {
+    if (previewTimerRef.current !== null) {
+      window.clearTimeout(previewTimerRef.current)
+      previewTimerRef.current = null
+    }
+    if (projectId === null) {
+      setPreviewId(null)
+      return
+    }
+    previewTimerRef.current = window.setTimeout(() => setPreviewId(projectId), 1000)
+  }
+  useEffect(() => () => {
+    if (previewTimerRef.current !== null) {
+      window.clearTimeout(previewTimerRef.current)
+    }
+  }, [])
+
+  const previewProject = canHoverPreview && previewId
+    ? projects.find(project => project.id === previewId && PROJECT_PRESENTATION[project.id]?.screenshot)
+    : undefined
+  const previewScreenshot = previewProject ? PROJECT_PRESENTATION[previewProject.id].screenshot : undefined
+
   return (
     <section id="projects" className="projects-section">
       <div className="projects-shell">
@@ -125,9 +162,36 @@ export default function ProjectsSection() {
               index={index}
               labelPrefix="Case study"
               language={language}
+              onPreview={handlePreview}
             />
           ))}
         </div>
+
+        <AnimatePresence>
+          {previewProject && previewScreenshot && (
+            <motion.div
+              className="project-preview-overlay"
+              aria-hidden="true"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.22 }}
+            >
+              <motion.div
+                className="project-preview-frame"
+                initial={{ opacity: 0, scale: 0.88, y: 26, filter: 'blur(10px)' }}
+                animate={{ opacity: 1, scale: 1, y: 0, filter: 'blur(0px)' }}
+                exit={{ opacity: 0, scale: 0.94, y: 12, filter: 'blur(6px)' }}
+                transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+              >
+                <span className="project-preview-title">
+                  {previewProject.name} — {language === 'pt' ? 'demo ao vivo' : 'live demo'}
+                </span>
+                <img src={previewScreenshot} alt="" decoding="async" />
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         <motion.div
           className="projects-archive-link"

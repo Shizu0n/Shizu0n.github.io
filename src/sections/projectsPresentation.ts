@@ -39,7 +39,7 @@ export const PROJECT_PRESENTATION: Record<string, ProjectPresentation> = {
       en: 'Live · replayable traces · 100% eval baseline (22 cases) · $0 free-tier ops',
       pt: 'No ar · traces com replay · baseline de eval 100% (22 casos) · operação free-tier US$ 0',
     },
-    screenshot: '/projects/react-agent.png',
+    screenshot: '/projects/react-agent.gif',
   },
   'advanced-rag': {
     group: 'ai',
@@ -51,7 +51,7 @@ export const PROJECT_PRESENTATION: Record<string, ProjectPresentation> = {
       en: 'Hybrid retrieval (BM25 + dense + RRF) · RAGAS eval · works offline at $0',
       pt: 'Retrieval híbrido (BM25 + denso + RRF) · avaliação RAGAS · opera offline a US$ 0',
     },
-    screenshot: '/projects/advanced-rag.png',
+    screenshot: '/projects/advanced-rag.gif',
   },
   // Row 2: 5 + 7
   'phi3-mini-sql': {
@@ -64,7 +64,7 @@ export const PROJECT_PRESENTATION: Record<string, ProjectPresentation> = {
       en: '73.5% exact-match SQL (from 2% base) · 21-min QLoRA on a free T4',
       pt: '73,5% de exact-match em SQL (de 2% base) · QLoRA de 21 min numa T4 gratuita',
     },
-    screenshot: '/projects/phi3-demo.png',
+    screenshot: '/projects/phi3-demo.gif',
   },
   'shizu0n-cv': {
     group: 'application',
