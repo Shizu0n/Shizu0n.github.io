@@ -67,6 +67,18 @@ const CHAT_PROJECT_ACTIONS: ChatProjectAction[] = [
     stacks: ['React 19', 'TypeScript', 'Vite 7', 'Framer Motion 12', 'Lenis', 'Tailwind CSS 4', 'JavaScript', 'Vercel Functions', 'Server-Sent Events', 'Gemini API', 'Groq', 'Supabase', 'PostgreSQL', 'pgvector', 'GitHub API', 'EmailJS', 'ESLint', 'Prettier', 'Playwright'],
   },
   {
+    id: 'campus-cycle',
+    name: 'CampusCycle',
+    aliases: ['campuscycle', 'campus cycle', 'campus-cycle', 'campus cycles', 'campus cycles marketplace', 'marketplace universitário', 'marketplace universitario', 'marketplace do campus'],
+    summary: {
+      en: 'Installable university circular-economy marketplace with a React PWA, Express and Prisma API, JWT authentication, and an IndexedDB offline write queue that safely publishes listings after reconnection.',
+      pt: 'Marketplace universitário instalável de economia circular, com PWA em React, API Express e Prisma, autenticação JWT e fila offline no IndexedDB que publica anúncios com segurança após a reconexão.',
+    },
+    github: 'https://github.com/Shizu0n/CampusCycle',
+    live: 'https://campus-cycles.vercel.app',
+    stacks: ['React 19', 'TypeScript', 'Vite 6', 'PWA', 'Workbox', 'IndexedDB', 'Node.js', 'Express', 'Prisma', 'PostgreSQL', 'Neon', 'JWT', 'Vitest', 'Vercel', 'Render'],
+  },
+  {
     id: 'referral-system',
     name: 'Referral System',
     aliases: ['referral system', 'referralsystem', 'sistema de indicação', 'sistema de indicacao'],

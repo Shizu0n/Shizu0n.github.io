@@ -6,13 +6,13 @@
  * keys match the catalog exactly — stops the grid from drifting out of sync again.
  *
  * All projects render in one unified grid. The catalog is AI-first, so the three applied-AI
- * builds lead, then the portfolio, then the full-stack application systems. The 8 tiles fill
- * four 12-column rows (7+5, 5+7, 7+5, 5+7). `group` no longer splits the section — it only
+ * builds lead, then the portfolio, then the full-stack application systems. The 9 tiles fill
+ * five 12-column rows (7+5, 5+7, 12, 7+5, 5+7). `group` no longer splits the section — it only
  * marks the AI/ML builds so their tiles lead with the live demo link. `metric` is a short
  * outcome/evidence line surfaced on the tile (the result, not just the stack).
  */
 
-export type ProjectVariant = 'feature' | 'tall' | 'standard' | 'wide'
+export type ProjectVariant = 'feature' | 'tall' | 'standard' | 'wide' | 'full'
 export type ProjectVisual = 'network' | 'route' | 'ledger' | 'sequence'
 export type ProjectGroup = 'application' | 'ai'
 
@@ -78,7 +78,19 @@ export const PROJECT_PRESENTATION: Record<string, ProjectPresentation> = {
     },
     screenshot: '/projects/shizu0n-cv.png',
   },
-  // Row 3: 7 + 5 — full-stack application systems
+  // Row 3: 12 — newest full-stack application
+  'campus-cycle': {
+    group: 'application',
+    variant: 'full',
+    visual: 'route',
+    accent: 'Circulate',
+    category: { en: 'Offline-first university marketplace', pt: 'Marketplace universitário offline-first' },
+    metric: {
+      en: 'Installable PWA · offline write queue · idempotent sync · 64 discovered tests',
+      pt: 'PWA instalável · fila de escrita offline · sincronização idempotente · 64 testes descobertos',
+    },
+  },
+  // Row 4: 7 + 5 — full-stack application systems
   'referral-system': {
     group: 'application',
     variant: 'feature',
@@ -101,7 +113,7 @@ export const PROJECT_PRESENTATION: Record<string, ProjectPresentation> = {
       pt: 'Domínio de 8 entidades · 7 grupos de endpoints · JWT + Helmet',
     },
   },
-  // Row 4: 5 + 7
+  // Row 5: 5 + 7
   'academic-system': {
     group: 'application',
     variant: 'standard',

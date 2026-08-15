@@ -17,6 +17,7 @@ describe('project grid ↔ catalog reconciliation', () => {
   it('includes the application systems and the AI / ML group', () => {
     const ids = getShowcaseProjects().map((p) => p.id);
     expect(ids).toContain('gym-management'); // app project that was previously missing from the grid
+    expect(ids[4]).toBe('campus-cycle');
     expect(ids).toEqual(expect.arrayContaining(['react-agent', 'advanced-rag', 'phi3-mini-sql']));
   });
 
@@ -24,10 +25,16 @@ describe('project grid ↔ catalog reconciliation', () => {
     const variants = getShowcaseProjects().map((project) => SPAN[PROJECT_PRESENTATION[project.id].variant]);
     const total = variants.reduce((sum, span) => sum + span, 0);
 
-    expect(total).toBe(48); // 8 tiles across four 12-column rows
-    // consecutive pairs (in catalog order) each fill a row: 7+5, 5+7, 7+5, 5+7
-    for (let i = 0; i < variants.length; i += 2) {
-      expect(variants[i] + variants[i + 1]).toBe(12);
+    expect(total).toBe(60); // 9 tiles across five 12-column rows
+
+    let rowSpan = 0;
+    for (const span of variants) {
+      rowSpan += span;
+      expect(rowSpan).toBeLessThanOrEqual(12);
+      if (rowSpan === 12) {
+        rowSpan = 0;
+      }
     }
+    expect(rowSpan).toBe(0);
   });
 });

@@ -1,19 +1,32 @@
 import { describe, expect, it } from 'vitest';
-import { extractProjectActions } from '../chatProjectCatalog';
+import { extractProjectActions, getShowcaseProjects } from '../chatProjectCatalog';
 
 describe('chatProjectCatalog.extractProjectActions', () => {
   it('returns all catalog projects when explicit list mode is enabled', () => {
     const result = extractProjectActions('any content', true);
 
     expect(result).toHaveLength(5);
-    // Catalog is AI-first, so the first five cards lead with the applied-AI builds.
+    // Catalog is AI-first, followed by the portfolio itself and CampusCycle.
     expect(result.map((project) => project.id)).toEqual([
       'react-agent',
       'advanced-rag',
       'phi3-mini-sql',
       'shizu0n-cv',
-      'referral-system',
+      'campus-cycle',
     ]);
+  });
+
+  it('places CampusCycle after the portfolio with both public links', () => {
+    const projects = getShowcaseProjects();
+    const campusCycle = projects[4];
+
+    expect(projects).toHaveLength(9);
+    expect(campusCycle).toMatchObject({
+      id: 'campus-cycle',
+      name: 'CampusCycle',
+      github: 'https://github.com/Shizu0n/CampusCycle',
+      live: 'https://campus-cycles.vercel.app',
+    });
   });
 
   it('returns only explicitly mentioned projects', () => {
@@ -21,6 +34,13 @@ describe('chatProjectCatalog.extractProjectActions', () => {
     const result = extractProjectActions(content, false);
 
     expect(result.map((project) => project.id)).toEqual(['delivery-system', 'referral-system']);
+  });
+
+  it('parses a natural CampusCycle reference without duplicating its card', () => {
+    const content = 'O marketplace do campus funciona offline; esse marketplace do campus usa uma fila local.';
+    const result = extractProjectActions(content, false);
+
+    expect(result.map((project) => project.id)).toEqual(['campus-cycle']);
   });
 
   it('does not return cards when only stack names are present', () => {

@@ -179,5 +179,17 @@
       "Advanced RAG",
       "Phi-3"
     ]
+  },
+  {
+    "id": "pt-campus-cycle",
+    "language": "pt",
+    "question": "Explique o CampusCycle, seu funcionamento offline e onde posso acessar o código e a aplicação.",
+    "must_include": [
+      "CampusCycle",
+      "IndexedDB",
+      "idempotência",
+      "GitHub",
+      "campus-cycles.vercel.app"
+    ]
   }
 ]

@@ -16,11 +16,20 @@ async function main() {
   const knowledge = JSON.parse(await fs.readFile(KNOWLEDGE_PATH, 'utf8'));
   const evals = JSON.parse(await fs.readFile(EVALS_PATH, 'utf8'));
 
-  assert(Array.isArray(knowledge.projects) && knowledge.projects.length === 8, 'Expected 8 scoped projects.');
+  assert(Array.isArray(knowledge.projects) && knowledge.projects.length === 9, 'Expected 9 scoped projects.');
   assert(Array.isArray(knowledge.stack_inventory) && knowledge.stack_inventory.length > 0, 'Stack inventory is empty.');
   assert(Array.isArray(knowledge.chat_runtime?.chunks) && knowledge.chat_runtime.chunks.length > 0, 'Runtime chunks are missing.');
   assert(typeof knowledge.chat_runtime?.canonical_profile === 'string', 'Canonical profile is missing.');
 
+  const campusCycle = knowledge.projects.find((project) => project.id === 'campus-cycle');
+  assert(campusCycle, 'CampusCycle is missing from the project knowledge.');
+  assert(campusCycle.github?.html_url === 'https://github.com/Shizu0n/CampusCycle', 'CampusCycle GitHub URL is invalid.');
+  assert(campusCycle.live_url === 'https://campus-cycles.vercel.app', 'CampusCycle live URL is invalid.');
+  assert(knowledge.chat_runtime.project_aliases?.campuscycle === 'campus-cycle', 'CampusCycle alias is missing.');
+  assert(
+    knowledge.chat_runtime.chunks.some((chunk) => chunk.project_id === 'campus-cycle'),
+    'CampusCycle runtime chunks are missing.'
+  );
   for (const project of knowledge.projects) {
     assert(project.problem?.en && project.problem?.pt, `Missing problem text for ${project.id}.`);
     assert(project.solution?.en && project.solution?.pt, `Missing solution text for ${project.id}.`);

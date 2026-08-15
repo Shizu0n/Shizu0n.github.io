@@ -936,6 +936,11 @@ button {
   min-height: 24rem;
 }
 
+.project-showcase--full {
+  grid-column: 1 / -1;
+  min-height: 28rem;
+}
+
 .project-showcase-visual {
   position: absolute;
   inset: 0;
@@ -1876,7 +1881,8 @@ button {
   .project-showcase--feature,
   .project-showcase--tall,
   .project-showcase--standard,
-  .project-showcase--wide {
+  .project-showcase--wide,
+  .project-showcase--full {
     grid-column: auto;
     min-height: 21rem;
   }

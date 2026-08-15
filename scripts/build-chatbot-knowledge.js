@@ -14,6 +14,7 @@ const REPO_ORDER = [
   'GymManagement',
   'ReferralSystem',
   'Shizu0n-CV',
+  'CampusCycle',
   'ReAct-Agent',
   'Advanced-RAG',
   'phi3-mini-sql-generator'
@@ -479,7 +480,8 @@ function buildProjectChunks(project, scoreCard) {
         `What it solves EN: ${project.what_it_solves.en}`,
         `What it solves PT: ${project.what_it_solves.pt}`,
         `Target users: ${project.target_users.roles.join(', ')}`,
-        `GitHub: ${project.github.html_url}`
+        `GitHub: ${project.github.html_url}`,
+        ...(project.live_url ? [`Live application: ${project.live_url}`] : [])
       ].join('\n')
     },
     {

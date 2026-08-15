@@ -385,6 +385,86 @@
     ]
   },
   {
+    "id": "campus-cycle",
+    "repo": "CampusCycle",
+    "display_name": "CampusCycle",
+    "status": "completed",
+    "aliases": ["campuscycle", "campus cycle", "campus-cycle", "campus cycles", "campus cycles marketplace", "marketplace universitário", "marketplace universitario", "marketplace do campus"],
+    "live_url": "https://campus-cycles.vercel.app",
+    "summary_pt": "Marketplace universitário instalável de economia circular, com PWA em React, API Express e Prisma, autenticação JWT e fila offline no IndexedDB que publica anúncios com segurança após a reconexão.",
+    "summary_en": "Installable university circular-economy marketplace with a React PWA, Express and Prisma API, JWT authentication, and an IndexedDB offline write queue that safely publishes listings after reconnection.",
+    "problem": {
+      "pt": "Itens usados dentro da comunidade universitária são descartados ou ficam ociosos porque estudantes não têm um fluxo local, confiável e resiliente para vender ou doar mesmo quando a conexão falha.",
+      "en": "Used items within a university community are discarded or left idle because students lack a local, trustworthy, resilient flow for selling or donating when connectivity fails."
+    },
+    "why_built": {
+      "pt": "Foi construído para transformar a circulação de itens usados no campus em um produto full stack completo, combinando recursos de marketplace e PWA com um diferencial demonstrável: criar um anúncio em modo avião e publicá-lo sem duplicação após a reconexão.",
+      "en": "It was built to turn the circulation of used items on campus into a complete full-stack product, combining marketplace and PWA capabilities with one demonstrable differentiator: creating a listing in airplane mode and publishing it without duplication after reconnection."
+    },
+    "solution": {
+      "pt": "PWA React 19 e TypeScript com cache NetworkFirst para leituras, fila de escrita no IndexedDB, sincronização idempotente por UUID do cliente e API Express/Prisma implantada no Render sobre PostgreSQL Neon.",
+      "en": "A React 19 and TypeScript PWA with NetworkFirst read caching, an IndexedDB write queue, client-UUID idempotent synchronization, and an Express/Prisma API deployed on Render over Neon PostgreSQL."
+    },
+    "what_it_solves": {
+      "pt": "Permite que estudantes encontrem, filtrem, vendam e doem itens usados e mantém a criação de anúncios disponível offline, conciliando o item local com o servidor depois que a rede retorna.",
+      "en": "It lets students discover, filter, sell, and donate used items while keeping listing creation available offline and reconciling the local item with the server after connectivity returns."
+    },
+    "target_users": {
+      "roles": ["University students", "Campus community members"],
+      "pt": "Estudantes e membros da comunidade universitária que querem circular itens usados por venda ou doação.",
+      "en": "Students and university community members who want to circulate used items through sales or donations."
+    },
+    "key_features": ["Installable PWA", "Browse, search, and category or donation filters", "Create, update, sell, donate, and remove listings", "Offline read cache", "IndexedDB offline write queue", "Pending-to-published synchronization", "Client UUID idempotency", "Exclusive anonymous or JWT identity mode", "Ownership authorization", "Impact counter", "Responsive Xilo-Feira interface", "64 discovered automated tests"],
+    "architecture": {
+      "style": "Offline-first full-stack PWA",
+      "pt": "Frontend React organizado por responsabilidades, service worker Workbox para shell e leituras offline, fila IndexedDB para escritas, transporte com contrato de identidade e API Express com validação zod, autorização, idempotência e persistência Prisma/PostgreSQL.",
+      "en": "A responsibility-oriented React frontend, a Workbox service worker for the app shell and offline reads, an IndexedDB write queue, identity-aware transport, and an Express API with zod validation, authorization, idempotency, and Prisma/PostgreSQL persistence.",
+      "patterns": ["Progressive Web App", "NetworkFirst caching", "Offline write queue", "State machine", "Idempotency key", "Exclusive identity resolver", "Responsibility-based modules"]
+    },
+    "data_model": {
+      "entities": ["User", "Listing", "Offline queue item", "Impact statistics"],
+      "pt": "Modelo relacional centrado em usuários e anúncios, com UUID gerado no cliente para idempotência e um estado local separado para itens pendentes, sincronizados ou falhos.",
+      "en": "A relational model centered on users and listings, with client-generated UUIDs for idempotency and separate local state for pending, synchronized, or failed items."
+    },
+    "auth": {
+      "mode": "exclusive_anonymous_or_jwt",
+      "pt": "Cada servidor ativa exatamente um resolvedor de identidade: UUID anônimo ou JWT com bcrypt e expiração de sete dias; credenciais dos dois modos nunca são aceitas como alternativas simultâneas.",
+      "en": "Each server activates exactly one identity resolver: an anonymous UUID or a seven-day JWT backed by bcrypt; credentials from both modes are never accepted as simultaneous alternatives."
+    },
+    "integrations": {
+      "components": ["Vercel", "Render", "Neon PostgreSQL", "Prisma", "Workbox", "IndexedDB", "UptimeRobot"],
+      "pt": "Integra frontend na Vercel, API no Render e PostgreSQL no Neon, com UptimeRobot tocando uma rota que consulta o banco para reduzir cold starts.",
+      "en": "It integrates a Vercel frontend, Render API, and Neon PostgreSQL database, with UptimeRobot calling a database-backed route to reduce cold starts."
+    },
+    "frontend_stack": ["React 19", "React Router 7", "Vite 6", "TypeScript", "PWA", "Workbox", "IndexedDB", "CSS"],
+    "backend_stack": ["Node.js", "Express 4", "TypeScript", "zod", "Prisma 6", "JWT", "bcrypt", "pino-http", "express-rate-limit"],
+    "database_stack": ["PostgreSQL", "Neon", "Prisma", "IndexedDB"],
+    "tooling_stack": ["Vitest", "Supertest", "fake-indexeddb", "happy-dom", "Docker Compose", "Vercel", "Render", "UptimeRobot"],
+    "all_stacks": ["React 19", "React Router 7", "Vite 6", "TypeScript", "PWA", "Workbox", "IndexedDB", "Node.js", "Express 4", "zod", "Prisma 6", "PostgreSQL", "Neon", "JWT", "bcrypt", "Vitest", "Supertest", "Vercel", "Render"],
+    "metrics_engineering": {
+      "automated_tests": { "total_discovered": 64, "server": 39, "web": 25 },
+      "deployment": { "frontend": "Vercel", "api": "Render", "database": "Neon PostgreSQL" },
+      "modules": ["web/src", "web/src/lib/offlineQueue", "web/src/sw.ts", "server/src/routes", "server/src/middleware", "server/prisma"]
+    },
+    "metrics_functional": {
+      "domain_areas": ["Marketplace discovery", "Listing lifecycle", "Offline synchronization", "Authentication and ownership", "Circular-economy impact"],
+      "primary_flows": ["Browse and filter listings", "Create a listing online", "Create a listing offline", "Synchronize after reconnection", "Register or log in", "Mark an item sold or donated", "Remove an owned listing"]
+    },
+    "strengths": ["Distinct offline-first product story", "Full-stack deployment across independent managed services", "Idempotent offline synchronization", "Security-aware exclusive identity model", "Strong automated and physical-device testing evidence", "Project-specific Xilo-Feira visual system", "Detailed engineering and AI-governance documentation"],
+    "tradeoffs": ["JWT is stored in localStorage instead of httpOnly cookies", "Images use URLs instead of uploads", "Background Sync is deliberately out of scope", "Server integration tests require a local PostgreSQL instance", "Repository documentation has a few stale test-count and phase-status references"],
+    "reliability": {
+      "pt": "Leituras usam NetworkFirst com timeout de quatro segundos; escritas offline permanecem no IndexedDB e seguem uma máquina de estados. Falhas de rede mantêm o item pendente, 401 aguarda novo login, 429 aplica backoff, 5xx tem tentativas limitadas e outros 4xx viram falhas visíveis. UUID do cliente e regra de propriedade tornam reenvios idempotentes.",
+      "en": "Reads use NetworkFirst with a four-second timeout; offline writes remain in IndexedDB and follow a state machine. Network failures keep items pending, 401 waits for renewed login, 429 backs off, 5xx has bounded retries, and other 4xx responses become visible failures. Client UUIDs and ownership rules make resubmission idempotent."
+    },
+    "recommendation_tags": ["react", "typescript", "nodejs", "full-stack", "pwa", "offline-first", "indexeddb", "express", "prisma", "postgresql", "jwt", "testing", "deployment"],
+    "evidence_sources": [
+      { "kind": "github_description", "locator": "Shizu0n/CampusCycle", "note": "Repository metadata confirms the deployed full-stack PWA." },
+      { "kind": "github_readme", "locator": "Shizu0n/CampusCycle/README.md", "note": "README documents product flows, architecture, offline behavior, security, deployment, and trade-offs." },
+      { "kind": "github_documentation", "locator": "Shizu0n/CampusCycle/docs/design-doc.md", "note": "The design document records the approved architecture and evaluation strategy." },
+      { "kind": "github_tree", "locator": "Shizu0n/CampusCycle", "note": "Repository structure and tests establish the React PWA, Express/Prisma API, and offline queue implementation." }
+    ]
+  },
+  {
     "id": "react-agent",
     "repo": "ReAct-Agent",
     "display_name": "ReAct Agent",

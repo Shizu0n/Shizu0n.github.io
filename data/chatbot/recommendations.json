@@ -298,6 +298,63 @@
       }
     },
     {
+      "project_id": "campus-cycle",
+      "summary_pt": "Vitrine full stack mais forte para PWA, resiliência offline e entrega de produto: marketplace universitário implantado com sincronização idempotente e 64 testes descobertos.",
+      "summary_en": "The strongest full-stack showcase for PWA, offline resilience, and product delivery: a deployed university marketplace with idempotent synchronization and 64 discovered tests.",
+      "scores": {
+        "completeness": {
+          "score": 5,
+          "reason_pt": "Entrega descoberta, autenticação, CRUD, ciclo de anúncio, PWA instalável, operação offline, testes, documentação e deploy dividido em serviços reais.",
+          "reason_en": "It delivers discovery, authentication, CRUD, the listing lifecycle, an installable PWA, offline operation, tests, documentation, and a split deployment on real services."
+        },
+        "backend_depth": {
+          "score": 4,
+          "reason_pt": "API Express/Prisma com contratos zod, paginação, propriedade, rate limiting, identidade exclusiva e idempotência por UUID do cliente.",
+          "reason_en": "An Express/Prisma API with zod contracts, pagination, ownership, rate limiting, exclusive identity, and client-UUID idempotency."
+        },
+        "frontend_polish": {
+          "score": 5,
+          "reason_pt": "A direção Xilo-Feira é específica do produto, responsiva, acessível e preservada offline por assets e fontes locais.",
+          "reason_en": "The Xilo-Feira direction is product-specific, responsive, accessible, and preserved offline through local assets and fonts."
+        },
+        "architecture_maturity": {
+          "score": 5,
+          "reason_pt": "Separa cache de leitura, fila de escrita, identidade, transporte, validação e persistência com contratos explícitos e módulos testáveis.",
+          "reason_en": "It separates read caching, the write queue, identity, transport, validation, and persistence through explicit contracts and testable modules."
+        },
+        "security_auth": {
+          "score": 4,
+          "reason_pt": "JWT e bcrypt, identidade anônima/JWT exclusiva, autorização por proprietário, limites e proteção contra banco remoto; perde um ponto por manter JWT em localStorage.",
+          "reason_en": "JWT and bcrypt, exclusive anonymous/JWT identity, owner authorization, limits, and remote-database protection; it loses one point for storing JWT in localStorage."
+        },
+        "data_modeling": {
+          "score": 4,
+          "reason_pt": "Prisma/PostgreSQL modela usuários e anúncios, enquanto a fila IndexedDB mantém estados locais e UUIDs de idempotência sem duplicar itens sincronizados.",
+          "reason_en": "Prisma/PostgreSQL models users and listings, while the IndexedDB queue maintains local states and idempotency UUIDs without duplicating synchronized items."
+        },
+        "functional_scope": {
+          "score": 5,
+          "reason_pt": "Cobre busca e filtros, venda e doação, criação online/offline, sincronização, autenticação, propriedade, status, remoção e impacto circular.",
+          "reason_en": "It covers search and filters, sales and donations, online/offline creation, synchronization, authentication, ownership, status, deletion, and circular impact."
+        },
+        "documentation_quality": {
+          "score": 4,
+          "reason_pt": "README, design, plano de testes e diário de IA preservam decisões e trade-offs; alguns totais de testes e estados de fase estão desatualizados.",
+          "reason_en": "The README, design, test plan, and AI diary preserve decisions and trade-offs; some test totals and phase statuses are stale."
+        },
+        "production_readiness": {
+          "score": 4,
+          "reason_pt": "Frontend, API e banco estão implantados em Vercel, Render e Neon, com monitoramento; cookie seguro e CI com banco isolado ainda seriam necessários para produção real.",
+          "reason_en": "The frontend, API, and database are deployed on Vercel, Render, and Neon with monitoring; secure-cookie auth and CI with an isolated database would still be needed for real production."
+        },
+        "ai_ml_depth": {
+          "score": 1,
+          "reason_pt": "IA foi usada e documentada como ferramenta de desenvolvimento, mas não é uma funcionalidade ou componente técnico do produto.",
+          "reason_en": "AI was used and documented as a development tool, but it is not a product feature or technical component."
+        }
+      }
+    },
+    {
       "project_id": "react-agent",
       "summary_pt": "Melhor vitrine de engenharia de agentes: laço ReAct em LangGraph com traço observável, memória entre conversas, RAG de documentos com citações, traces persistidos com replay e descoberta de ferramentas via MCP — tudo em free-tier, com avaliação sobre o grafo real e deploy público.",
       "summary_en": "The best showcase of agent engineering: a ReAct loop in LangGraph with an observable trace, cross-conversation memory, document RAG with citations, persisted replayable traces, and MCP tool discovery — all on free tier, with evaluation over the real graph and public deployment.",
